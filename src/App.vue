@@ -1,39 +1,17 @@
 <template>
-	<div class="h-100 container-fluid px-0 flex-shrink-0">
-		<!-- <global-header  class="sticky-sm-top"  :user="currentUser"></global-header> -->
+
+	<div class="h-100 container px-0 flex-shrink-0">
+
 		<loader v-if="isLoading"></loader>
 
 		<router-view>
 
 		</router-view>
-		<div>
-			<a-back-top />
-		</div>
+
+		<a-back-top />
+
 	</div>
 
-	<!-- <footer class="text-center py-4 text-secondary bg-light mt-auto">
-		<small>
-			<ul class="list-inline mb-0">
-				<li class="list-inline-item">津ICP备20000929号-1</li>
-				<li class="list-inline-item"><a
-						href="https://coding.imooc.com/class/449.html"
-						target="_blank"
-					>购买课程</a></li>
-				<li class="list-inline-item"><a
-						href="http://docs.vikingship.xyz/"
-						target="_blank"
-					>文档</a></li>
-				<li class="list-inline-item"><a
-						href="http://api.vikingship.xyz/"
-						target="_blank"
-					>API 在线调试</a></li>
-				<li class="list-inline-item"><a
-						href="http://showcase.vikingship.xyz/"
-						target="_blank"
-					>组件库演示</a></li>
-			</ul>
-		</small>
-	</footer> -->
 </template>
 
 <script lang="ts">
