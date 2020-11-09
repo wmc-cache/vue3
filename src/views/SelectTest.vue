@@ -78,6 +78,9 @@ export default defineComponent({
 			a.download = "wmc.webm";
 			a.click();
 		};
+
+
+		
 		const startRecord = () => {
 			window.buffer = [];
 

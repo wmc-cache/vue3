@@ -62,6 +62,8 @@ export interface GlobalDataProps {
   posts: GlobalPostsProps;
   user: UserProps;
 }
+
+//通用接口请求
 //url mutationName commit config  extraData?
 const asyncAndCommit = async (url: string, mutationName: string,
   commit: Commit,
