@@ -1,48 +1,46 @@
 <template>
+
 	<div class="body">
+		<global-header class="fixed-top"></global-header>
+		<div class="content">
+			<img
+				class="login"
+				src="../assets/login.png"
+			>
 
-		<div class="from">
-			<validate-form @form-submit="onFormSubmit">
-				<div class="from-item">
-					<label class="form-label">用户名</label>
-					<validate-input
-						class="from-input"
-						:rules="userRules"
-						v-model="userVal"
-						placeholder="请输入用户名"
-						type="text"
-					/>
-				</div>
+			<div class="from">
+				<div class="from-title">账号登陆</div>
+				<validate-form @form-submit="onFormSubmit">
+					<div class="from-item">
 
-				<div class="from-item">
-					<label class="form-label">密码</label>
-					<validate-input
-						class="from-input"
-						type="password"
-						placeholder="请输入密码"
-						:rules="passwordRules"
-						v-model="passwordVal"
-					/>
-				</div>
-				<template #submit>
-					<button
-						type="submit"
-						style="width:300px;margin:auto;margin-top:50px;"
-						class="btn btn-primary btn-block"
-					>登录</button>
-				</template>
-			</validate-form>
+						<validate-input
+							class="from-input"
+							:rules="userRules"
+							v-model="userVal"
+							placeholder="账号"
+							type="text"
+						/>
+					</div>
 
-			<a-popover placement="bottom">
+					<div class="from-item">
 
-				<a-button type="primary">
-					Hover me
-				</a-button>
-				<template #content>
-					<p>Content</p>
-					<p>Content</p>
-				</template>
-			</a-popover>
+						<validate-input
+							class="from-input"
+							type="password"
+							placeholder="密码"
+							:rules="passwordRules"
+							v-model="passwordVal"
+						/>
+					</div>
+					<template #submit>
+						<button
+							type="submit"
+							class="from-button"
+						>登录</button>
+					</template>
+				</validate-form>
+
+			</div>
 
 		</div>
 
@@ -57,9 +55,11 @@ import ValidateInput, { RulesProp } from "../components/ValidateInput.vue";
 import ValidateForm from "../components/ValidateForm.vue";
 import createMessage from "../components/createMessage";
 import { notification } from "ant-design-vue";
+import GlobalHeader from "../components/GlobalHeader";
 export default defineComponent({
 	name: "Login",
 	components: {
+		GlobalHeader,
 		ValidateInput,
 		ValidateForm
 	},
@@ -85,7 +85,7 @@ export default defineComponent({
 			if (result) {
 				const payload = {
 					name: userVal.value,
-          password: passwordVal.value
+					password: passwordVal.value
 				};
 				store
 					.dispatch("loginAndFetch", payload)
@@ -94,7 +94,7 @@ export default defineComponent({
 							message: "登录成功",
 							description: "欢迎"
 						});
-						router.push("/home");
+						router.push("/select");
 					})
 					.catch(e => {
 						console.log(e);
@@ -115,37 +115,57 @@ export default defineComponent({
 
 <style>
 .body {
-	/* height: 100%;
-	width: 100%;
-	background-size: cover;
-	background-image: url("http://101.37.119.148:3000/back.png"); */
+	height: 100%;
+}
+.content {
+	height: 100%;
+	position: relative;
+	width: 1200px;
+	margin: auto;
+	display: flex;
+}
+
+.login {
+	width: 820px;
+	height: 547px;
 }
 
 .from {
-	width: 500px;
-	margin: auto;
+	background-color: #418fe8;
+	width: 342px;
+	height: 313px;
 }
-
-.from-item {
-	margin: auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 500px;
+.from-title {
+	margin-left: 17.25px;
+	font-size: 15px;
 	margin-top: 30px;
+	color: #ffffff;
 }
-
-.form-label {
-	width: 100px;
+.from-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 342px;
+	margin-top: 15px;
 }
 
 .from-input {
 	border: 0 !important;
-	border-bottom: 1px solid black !important;
+	border-bottom: 1px solid #fff !important;
 	border-radius: 0 !important;
-	width: 300px !important;
+	width: 298px !important;
+	background-color: #418fe8 !important;
+}
+.from-button {
+	border: none;
+	background-color: transparent;
+	outline: none;
+	width: 342px;
+	height: 58px;
+	margin-top: 140px;
+	background-color: #ffbb33;
+	color: #fff;
+  border-radius: 10px;
+	box-shadow: 0px 2px 14px rgba(42, 59, 84, 0.12);
 }
 </style>

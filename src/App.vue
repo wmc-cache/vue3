@@ -1,6 +1,6 @@
 <template>
 
-	<div class="h-100 container px-0 flex-shrink-0">
+	<div class="h-100 container-fluid px-0 flex-shrink-0">
 
 		<loader v-if="isLoading"></loader>
 
@@ -19,7 +19,6 @@ import { defineComponent, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import GlobalHeader from "./components/GlobalHeader.vue";
 import Loader from "./components/Loader.vue";
 import createMessage from "./components/createMessage";
 import { GlobalDataProps } from "./store";
@@ -29,7 +28,6 @@ import { notification } from "ant-design-vue";
 export default defineComponent({
 	name: "App",
 	components: {
-		GlobalHeader,
 		Loader
 	},
 	setup() {
@@ -45,7 +43,8 @@ export default defineComponent({
 				if (status && message) {
 					notification.error({
 						message: "错误",
-						description: `${message}`
+						description: `${message}`,
+						placement: "bottomRight"
 					});
 				}
 			}
