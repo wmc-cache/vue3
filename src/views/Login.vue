@@ -38,7 +38,7 @@
 				<a-button type="primary">
 					Hover me
 				</a-button>
-				<template v-slot:content>
+				<template #content>
 					<p>Content</p>
 					<p>Content</p>
 				</template>
@@ -85,8 +85,7 @@ export default defineComponent({
 			if (result) {
 				const payload = {
 					name: userVal.value,
-
-					password: passwordVal.value
+          password: passwordVal.value
 				};
 				store
 					.dispatch("loginAndFetch", payload)

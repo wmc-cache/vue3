@@ -4,18 +4,19 @@
 			ref="video"
 			autoplay
 		></video>
-		<video ref="reVideo"></video>
+		<!-- <video ref="playmedia"></video> -->
+		<audio ref="playmedia"></audio>
 		<button
-			@click="startVideo"
+			@click="startBtn"
 			ref="start"
 		>Start Record</button>
 		<button
-			@click="playVideo"
+			@click="playBtn"
 			disabled
 			ref="play"
 		>play</button>
 		<button
-			@click="downloadVideo"
+			@click="downloadBtn"
 			disabled
 			ref="download"
 		>download</button>
@@ -30,24 +31,24 @@ export default defineComponent({
 	components: {},
 	setup() {
 		const video = ref();
-		const reVideo = ref();
+		const playmedia = ref();
 		const start = ref();
 		const play = ref();
 		const download = ref();
 		onMounted(() => {
-			const constraints = { video: true, audio: false };
+			const constraints = { video:false, audio: true };
 			const ePromise = navigator.mediaDevices.getUserMedia(constraints);
 			ePromise.then(stream => {
-				const videoplay = video.value;
+				//const videoplay = video.value;
 				window.stream = stream;
-				videoplay.srcObject = stream;
+				// videoplay.srcObject = stream;
 				navigator.mediaDevices.enumerateDevices().then(res => {
 					console.log(res);
 				});
 			});
 		});
 		//开始录制
-		const startVideo = () => {
+		const startBtn = () => {
 			if (start.value.textContent === "Start Record") {
 				startRecord();
 				start.value.textContent = "Stop Record";
@@ -61,16 +62,16 @@ export default defineComponent({
 			}
 		};
 		//开始播放
-		const playVideo = () => {
-			var blob = new Blob(window.buffer, { type: "video/webm" });
-			reVideo.value.src = window.URL.createObjectURL(blob);
-			reVideo.value.srcObject = null;
-			reVideo.value.controls = true;
-			reVideo.value.play();
+		const playBtn = () => {
+			var blob = new Blob(window.buffer, { type: "audio/webm" });
+			playmedia.value.src = window.URL.createObjectURL(blob);
+			playmedia.value.srcObject = null;
+			playmedia.value.controls = true;
+			playmedia.value.play();
 		};
 		//下载视频
-		const downloadVideo = () => {
-			var blob = new Blob(buffer, { type: "video/webm" });
+		const downloadBtn = () => {
+			var blob = new Blob(buffer, { type: "audio/webm" });
 			var url = window.URL.createObjectURL(blob);
 			var a = document.createElement("a");
 			a.href = url;
@@ -85,7 +86,7 @@ export default defineComponent({
 			window.buffer = [];
 
 			const options = {
-				mimeType: "video/webm;codecs=vp8"
+				mimeType: "audio/webm"
 			};
 
 			if (!MediaRecorder.isTypeSupported(options.mimeType)) {
@@ -106,7 +107,7 @@ export default defineComponent({
 		const stopRecord = () => {
 			window.mediaRecorder.stop();
 		};
-		return { video, reVideo, start, play, download, startVideo, playVideo,downloadVideo };
+		return { video, playmedia, start, play, download, startBtn, playBtn,downloadBtn };
 	}
 });
 </script>
