@@ -8,6 +8,7 @@ import CreatePost from './views/CreatePost.vue'
 import PostDetail from './views/PostDetail.vue'
 import EditProfile from './views/EditProfile.vue'
 import SelectTest from './views/SelectTest.vue'
+import Violent from './views/Violent.vue'
 import store from './store'
 const routerHistory = createWebHistory()
 const router = createRouter({
@@ -24,6 +25,12 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: Home
+
+    },
+    {
+      path: '/violent',
+      name: 'violent',
+      component: Violent
 
     },
     {
