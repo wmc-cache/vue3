@@ -37,7 +37,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped> 
 .violent{
 	position: relative;
 }
@@ -47,7 +47,7 @@ export default defineComponent({
 .area {
 	margin-top: 20px;
 	width: 837px;
-	height: 827px;
+	
 	background: #ffffff;
 	box-shadow: 0px 3px 18px rgba(42, 59, 84, 0.12);
 	opacity: 1;

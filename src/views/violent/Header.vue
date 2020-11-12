@@ -24,6 +24,9 @@ export default defineComponent({
 	height: 50px;
 }
 .content {
+	display: flex;
+  justify-content: space-between;
+	align-items: center;
 	width: 1200px;
 }
 .title {

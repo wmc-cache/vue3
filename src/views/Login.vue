@@ -122,15 +122,19 @@ export default defineComponent({
 	position: relative;
 	width: 1200px;
 	margin: auto;
+	/* padding-top: 100px; */
 	display: flex;
 }
 
 .login {
+	margin-top: 100px;
 	width: 820px;
 	height: 547px;
 }
 
 .from {
+	margin-left: 52px;
+	margin-top: 200px;
 	background-color: #418fe8;
 	width: 342px;
 	height: 313px;

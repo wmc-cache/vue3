@@ -30,7 +30,13 @@ const router = createRouter({
     {
       path: '/violent',
       name: 'violent',
-      component: Violent
+      component: Violent,
+      children: [
+        {
+          path: 'all',
+          component: ()=>import('@/views/violent/EventTitle.vue')
+        }
+      ]
 
     },
     {

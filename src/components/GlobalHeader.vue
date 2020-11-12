@@ -16,7 +16,7 @@ export default defineComponent({
   name: "GlobalHeader",
 });
 </script>
-<style>
+<style scoped>
 .header {
   height: 50px;
   background-color: #418fe8;
