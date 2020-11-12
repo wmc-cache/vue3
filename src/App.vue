@@ -59,4 +59,10 @@ export default defineComponent({
 </script>
 
 <style>
+.content {
+	position: relative;
+	height: 100%;
+	width: 1200px;
+	margin: auto;
+}
 </style>

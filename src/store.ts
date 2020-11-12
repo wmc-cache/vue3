@@ -61,6 +61,7 @@ export interface GlobalDataProps {
   columns: GlobalColumnsProps;
   posts: GlobalPostsProps;
   user: UserProps;
+  pushEventDialog: boolean;
 }
 
 //通用接口请求
@@ -85,7 +86,8 @@ const store = createStore<GlobalDataProps>({
     loading: false,
     columns: { data: {}, currentPage: 0 },
     posts: { data: {}, loadedColumns: {} },
-    user: { isLogin: false }
+    user: { isLogin: false },
+    pushEventDialog: false
   },
 
 
@@ -93,6 +95,12 @@ const store = createStore<GlobalDataProps>({
 
   //commit  最小原子性操作
   mutations: {
+    createPushEventDialog(state) {
+      state.pushEventDialog = true
+    },
+    cancelPushEventDialog(state) {
+      state.pushEventDialog = false
+    },
     createPost(state, { data }) {
       state.posts.data[data._id] = data
     },

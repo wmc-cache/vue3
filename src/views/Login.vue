@@ -117,19 +117,15 @@ export default defineComponent({
 .body {
 	height: 100%;
 }
-.content {
-	height: 100%;
-	position: relative;
-	width: 1200px;
-	margin: auto;
-	/* padding-top: 100px; */
-	display: flex;
-}
+
 
 .login {
 	margin-top: 100px;
 	width: 820px;
 	height: 547px;
+}
+.content{
+	display: flex;
 }
 
 .from {
@@ -169,7 +165,7 @@ export default defineComponent({
 	margin-top: 140px;
 	background-color: #ffbb33;
 	color: #fff;
-  border-radius: 10px;
+	border-radius: 10px;
 	box-shadow: 0px 2px 14px rgba(42, 59, 84, 0.12);
 }
 </style>

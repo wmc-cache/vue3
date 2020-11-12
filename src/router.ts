@@ -31,10 +31,15 @@ const router = createRouter({
       path: '/violent',
       name: 'violent',
       component: Violent,
+      redirect: '/violent/all',
       children: [
         {
           path: 'all',
           component: ()=>import('@/views/violent/EventTitle.vue')
+        },
+        {
+          path: 'my',
+          component: ()=>import('@/views/violent/MyEvent.vue')
         }
       ]
 

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		
+		<!-- <push></push> -->
 		<div
 			class="body"
 			v-for="item in list"
@@ -56,10 +56,11 @@
 </template>
 
 <script>
+import Push from "@/views/violent/Push";
 export default {
 	name: "EventTitle",
-	component: {
-	
+	components: {
+		Push
 	},
 	data() {
 		return {
@@ -72,8 +73,9 @@ export default {
 
 <style scoped>
 .body {
+	margin-top: 20px;
 	padding: 20px;
-	border: 1px solid #f0f2f7;
+	border-bottom: 1px solid #f0f2f7;
 }
 .header {
 	display: flex;

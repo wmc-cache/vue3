@@ -21,7 +21,7 @@
 				<div>我参与的事件</div>
 			</div>
 
-			<div class="item3">
+			<div @click="open" class="item3">
 				<div> 发布新事件</div>
 
 			</div>
@@ -68,6 +68,9 @@ export default {
 				this.item1.color = "#ffffff";
 				this.item2.background = "#fff";
 				this.item2.color = "#999999";
+					this.$router.push({
+					path: "/violent/all",
+				});
 				return;
 			}
 		},
@@ -79,8 +82,14 @@ export default {
 				this.item2.color = "#ffffff";
 				this.item1.background = "#fff";
 				this.item1.color = "#999999";
+				this.$router.push({
+					path: "/violent/my",
+				});
 				return;
 			}
+		},
+		open(){
+			this.$store.commit("createPushEventDialog")
 		}
 	}
 };
