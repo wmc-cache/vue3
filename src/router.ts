@@ -35,11 +35,19 @@ const router = createRouter({
       children: [
         {
           path: 'all',
-          component: ()=>import('@/views/violent/EventTitle.vue')
+          component: () => import('@/views/violent/EventTitle.vue')
         },
         {
           path: 'my',
-          component: ()=>import('@/views/violent/MyEvent.vue')
+          component: () => import('@/views/violent/MyEvent.vue'),
+          redirect: '/violent/my/event',
+          children: [
+            {
+              path: "event",
+              component: () => import('@/views/violent/MyEvent.vue'),
+            }
+
+          ]
         }
       ]
 

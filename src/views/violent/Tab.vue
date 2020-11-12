@@ -21,7 +21,10 @@
 				<div>我参与的事件</div>
 			</div>
 
-			<div @click="open" class="item3">
+			<div
+				@click="open"
+				class="item3"
+			>
 				<div> 发布新事件</div>
 
 			</div>
@@ -36,9 +39,14 @@
 		v-if="state===2"
 		class="tag"
 	>
-		<div class="tag1">我发布的事件</div>
-		<div class="tag2">我的评论</div>
-		<div class="tag3">回复我的</div>
+		<div
+			@click="changeTag(item.id)"
+			:class="[{active:item.id===activeId}]"
+			v-for="item in tagList"
+			class="tag-item"
+		>
+			{{item.title}}
+		</div>
 	</div>
 </template>
 
@@ -56,7 +64,13 @@ export default {
 			item2: {
 				backgroundColor: "#fff",
 				color: "#999999"
-			}
+			},
+			activeId: 1,
+			tagList: [
+				{ id: 1, title: "我发布的事件",link:"/violent/my/event" },
+				{ id: 2, title: "我的评论",link:"/violent/my/comment" },
+				{ id: 3, title: "回复我的",link:"/violent/my/reply" }
+			]
 		};
 	},
 	methods: {
@@ -68,8 +82,8 @@ export default {
 				this.item1.color = "#ffffff";
 				this.item2.background = "#fff";
 				this.item2.color = "#999999";
-					this.$router.push({
-					path: "/violent/all",
+				this.$router.push({
+					path: "/violent/all"
 				});
 				return;
 			}
@@ -83,13 +97,16 @@ export default {
 				this.item1.background = "#fff";
 				this.item1.color = "#999999";
 				this.$router.push({
-					path: "/violent/my",
+					path: "/violent/my"
 				});
 				return;
 			}
 		},
-		open(){
-			this.$store.commit("createPushEventDialog")
+		changeTag(id) {
+       this.activeId = id
+		},
+		open() {
+			this.$store.commit("createPushEventDialog");
 		}
 	}
 };
@@ -163,16 +180,15 @@ export default {
 	display: flex;
 }
 
-.tag1 {
-	color: #000000;
-	margin-top: 20px;
-	margin-left: 10px;
-}
-.tag2,
-.tag3 {
+.tag-item {
 	margin-left: 36px;
 	margin-top: 20px;
 	color: #707070;
+	font-weight: 400;
+}
+.active {
+	color: #333333;
+	font-weight: 500;
 }
 </style>
 
