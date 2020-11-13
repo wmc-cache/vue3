@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<!-- <push></push> -->
 		<div
 			class="body"
 			v-for="item in list"
@@ -31,20 +30,21 @@
 			<div class="bottom">
 				<div class="agree">
 					<img
-						src=""
+						src="../../assets/上.png"
 						alt=""
 					>
 					<div class="agree-text">赞同51</div>
 				</div>
 				<div class="dislike">
 					<img
-						src=""
+						src="../../assets/下.png"
 						alt=""
 					>
 				</div>
 				<div class="comment">
 					<img
-						src=""
+						class="message-icon"
+						src="../../assets/message.png"
 						alt=""
 					>
 					25条评论
@@ -56,15 +56,15 @@
 </template>
 
 <script>
-import Push from "@/views/violent/Push";
+
 export default {
 	name: "EventTitle",
 	components: {
-		Push
+		
 	},
 	data() {
 		return {
-			list: [1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15],
+			list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
 			image: true
 		};
 	}
@@ -141,17 +141,34 @@ export default {
 	justify-content: center;
 	align-items: center;
 }
+.agree-text {
+	margin-left: 5px;
+}
 .dislike {
 	width: 31px;
 	height: 32px;
 	background: #e5f2ff;
 	margin-left: 15px;
 	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .comment {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-left: 20px;
+}
+
+img {
+	width: 11px;
+	height: 10px;
+}
+
+.message-icon {
+	width: 15px;
+	height: 15px;
+	margin-right: 6px;
 }
 </style>

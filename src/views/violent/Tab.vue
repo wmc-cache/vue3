@@ -40,7 +40,7 @@
 		class="tag"
 	>
 		<div
-			@click="changeTag(item.id)"
+			@click="changeTag(item.id,item.link)"
 			:class="[{active:item.id===activeId}]"
 			v-for="item in tagList"
 			class="tag-item"
@@ -67,9 +67,9 @@ export default {
 			},
 			activeId: 1,
 			tagList: [
-				{ id: 1, title: "我发布的事件",link:"/violent/my/event" },
-				{ id: 2, title: "我的评论",link:"/violent/my/comment" },
-				{ id: 3, title: "回复我的",link:"/violent/my/reply" }
+				{ id: 1, title: "我发布的事件", link: "/violent/my/event" },
+				{ id: 2, title: "我的评论", link: "/violent/my/comment" },
+				{ id: 3, title: "回复我的", link: "/violent/my/reply" }
 			]
 		};
 	},
@@ -102,8 +102,11 @@ export default {
 				return;
 			}
 		},
-		changeTag(id) {
-       this.activeId = id
+		changeTag(id,link) {
+			this.activeId = id;
+			this.$router.push({
+				path: `${link}`
+			});
 		},
 		open() {
 			this.$store.commit("createPushEventDialog");
