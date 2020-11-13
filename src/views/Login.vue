@@ -84,7 +84,7 @@ export default defineComponent({
 		const onFormSubmit = (result: boolean) => {
 			if (result) {
 				const payload = {
-					name: userVal.value,
+					username: userVal.value,
 					password: passwordVal.value
 				};
 				store
@@ -118,14 +118,14 @@ export default defineComponent({
 	height: 100%;
 }
 
+.content {
+	display: flex;
+}
 
 .login {
 	margin-top: 100px;
 	width: 820px;
 	height: 547px;
-}
-.content{
-	display: flex;
 }
 
 .from {

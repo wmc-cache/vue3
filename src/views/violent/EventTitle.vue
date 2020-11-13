@@ -49,6 +49,8 @@
 					>
 					25条评论
 				</div>
+				<div class="span1"></div>
+				<div class="sapn2"></div>
 			</div>
 		</div>
 	</div>
@@ -143,6 +145,8 @@ export default {
 }
 .agree-text {
 	margin-left: 5px;
+	color: #0084FF;
+	
 }
 .dislike {
 	width: 31px;

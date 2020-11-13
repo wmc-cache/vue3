@@ -1,9 +1,11 @@
 <template>
 	<div>
-		<div v-for="item in [1,2,3,4,5,6,7,8,9,10]" class="body">
+		<div
+			v-for="item in [1,2,3,4,5,6,7,8,9,10]"
+			class="body"
+		>
 			<div class="title">
-				<div class="title-span1">我:</div>
-				<div class="title-span2">发起者好感度：满意</div>
+				<div class="title-span1">“用户3”对我事件的评论:</div>
 				<div class="title-time">2020.10.28</div>
 			</div>
 			<div class="content">
@@ -16,17 +18,43 @@
 				</div>
 			</div>
 			<div class="bottom">
-				<div class="bottom-span1">510人赞同观点</div>
-				<div class="bottom-span2">510人不赞同观点</div>
-				<div class="bottom-span3">
+				<div class="agree">
 					<img
-					class="span3-img"
+						src="../../assets/上.png"
+						alt=""
+					>
+					<div class="agree-text">赞同51</div>
+				</div>
+				<div class="dislike">
+					<img
+						src="../../assets/下.png"
+						alt=""
+					>
+				</div>
+				<div class="comment">
+					<img
+						class="message-icon"
 						src="../../assets/message.png"
 						alt=""
 					>
-					250条评论</div>
-				<div class="bottom-span4">原文520条评论</div>
-				<div class="bottom-span5">查看发起者事件反馈</div>
+					25条评论
+				</div>
+				<div class="bottom-span1">
+					<img
+						class="span1-img"
+						src="../../assets/评价.png"
+						alt=""
+					>
+					<div class="span1-text">好感度评价</div>
+				</div>
+				<div class="bottom-span2">
+					<img
+						class="span2-img"
+						src="../../assets/完成.png"
+						alt=""
+					>
+					<div class="span2-text">已填写反馈</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -35,30 +63,24 @@
 
 <script>
 export default {
-	name: "Comment"
+	name: "Reply"
 };
 </script>
 
 <style scoped>
 .body {
 	padding: 20px;
-	border-bottom: 1px solid #f0f2f7;
 }
 .title {
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 }
 .title-span1 {
+	white-space: normal;
 	font-size: 18px;
 	font-weight: 400;
 	color: #333333;
-}
-.title-span2 {
-	font-size: 14px;
-	font-weight: 400;
-	color: #1e1e1e;
-	margin-left: 417px;
-	white-space: nowrap;
 }
 .title-time {
 	font-size: 14px;
@@ -94,63 +116,95 @@ export default {
 	margin-left: 44px;
 }
 .bottom {
-	margin-top: 36px;
 	display: flex;
-	align-items: center;
+	margin-top: 20px;
 }
-.bottom-span1 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 105px;
+
+.agree {
+	width: 79px;
 	height: 32px;
 	background: #e5f2ff;
 	opacity: 1;
 	border-radius: 6px;
-	color: #0084ff;
-}
-.bottom-span2 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 119px;
-	height: 32px;
-	background: rgba(255, 187, 51, 0.16);
-	border: 1px solid #ffbb33;
-	opacity: 1;
-	border-radius: 6px;
-	margin-left: 15px;
 }
-.bottom-span3 {
+.agree-text {
+	margin-left: 5px;
+	color: #0084ff;
+}
+.dislike {
+	width: 31px;
+	height: 32px;
+	background: #e5f2ff;
+	margin-left: 15px;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.comment {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-left: 20px;
 }
-.span3-img{
-	margin-right: 5px;
+
+img {
+	width: 11px;
+	height: 10px;
 }
-.bottom-span4 {
+
+.message-icon {
+	width: 15px;
+	height: 15px;
+	margin-right: 6px;
+}
+
+.bottom {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-left: 120px;
 }
-.bottom-span5 {
+
+.bottom-span1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-left: 80px;
-	width: 149px;
+	margin-left: 226px;
+	width: 115px;
 	height: 32px;
 	background: #418fe8;
 	opacity: 1;
 	border-radius: 6px;
-	color: #fff;
 }
 
-img {
-	width: 15px;
-	height: 15px;
+.span1-img {
+	width: 20px;
+	height: 20px;
+}
+.span1-text {
+	color: #fff;
+	margin-left: 5px;
+}
+.bottom-span2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 100px;
+	width: 111px;
+	height: 32px;
+	background: #418fe8;
+	opacity: 1;
+	border-radius: 6px;
+}
+.span2-img {
+	width: 20px;
+	height: 20px;
+}
+.span2-text {
+	color: #fff;
+	margin-left: 5px;
 }
 </style>

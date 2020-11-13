@@ -55,7 +55,7 @@ export interface GlobalPostsProps {
   loadedColumns: ListProps<{ total?: number; currentPage?: number }>;
 }
 export interface GlobalDataProps {
-  token: string;
+  token: string | null;
   error: GlobalErrorProps;
   loading: boolean;
   columns: GlobalColumnsProps;
@@ -81,7 +81,7 @@ const asyncAndCommit = async (url: string, mutationName: string,
 const store = createStore<GlobalDataProps>({
   //全局数据
   state: {
-    token: localStorage.getItem('token') || '',
+    token: localStorage.getItem('token') || null,
     error: { status: false },
     loading: false,
     columns: { data: {}, currentPage: 0 },
@@ -146,12 +146,11 @@ const store = createStore<GlobalDataProps>({
     },
     //登录(token)
     login(state, rawData) {
-      console.log("token", rawData)
+      //console.log("token", rawData)
       console.log("state", state)
-      const { token } = rawData
-      state.token = token
-      localStorage.setItem('token', token)
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`
+      const tokens = localStorage.getItem("token")
+      state.token = tokens
+      axios.defaults.headers.common.Authorization = `${tokens}`
     },
     //获取用户信息
     fetchCurrentUser(state, rawData) {
@@ -228,11 +227,11 @@ const store = createStore<GlobalDataProps>({
     //url mutationName commit config  extraData?
     //登录part1(token)
     login({ commit }, payload) {
-      return asyncAndCommit('/users/login', 'login', commit, { method: 'post', data: payload })
+      return asyncAndCommit('/school/login', 'login', commit, { method: 'post', data: payload })
     },
     //登录part2(用户信息)
     fetchCurrentUser({ commit }) {
-      return asyncAndCommit('/users', 'fetchCurrentUser', commit)
+      return asyncAndCommit('/school/users/info', 'fetchCurrentUser', commit, { method: "post" })
     },
   },
 
