@@ -27,7 +27,7 @@
       <div class="item4">剩余时间6天</div>
     </div>
   </div>
-  <div v-if="state === 2" class="tag">
+  <div v-if="state === '2'" class="tag">
     <div
       @click="changeTag(item.id, item.link)"
       :class="[{ active: item.id === activeId }]"
@@ -45,7 +45,7 @@ export default {
   name: "Tab",
   data() {
     return {
-      state: 2,
+      state: 1,
       tag: 1,
       item1: {
         backgroundColor: "#418fe8",
@@ -64,8 +64,9 @@ export default {
     };
   },
   mounted() {
-    this.activeId = +localStorage.getItem("Id");
-    if (localStorage.setItem("state", 1) === "1") {
+	this.activeId = +localStorage.getItem("Id");
+	this.state=localStorage.getItem("state")
+    if (+localStorage.getItem("state") === 1) {
       this.item1.background = "#418fe8";
       this.item1.color = "#ffffff";
       this.item2.background = "#fff";
@@ -80,8 +81,8 @@ export default {
   methods: {
     select1() {
       console.log(this.$refs.item1.getAttribute("data-id"));
-      if (this.state === 2) {
-        this.state = 1;
+      if (this.state == "2") {
+        this.state = "1";
         localStorage.setItem("state", 1);
         this.item1.background = "#418fe8";
         this.item1.color = "#ffffff";
@@ -95,9 +96,9 @@ export default {
     },
     select2() {
       console.log(this.$refs.item2.getAttribute("data-id"));
-      if (this.state === 1) {
-        this.state = 2;
-        localStorage.setItem("state", 1);
+      if (this.state == "1") {
+        this.state = "2";
+        localStorage.setItem("state", 2);
         this.item2.background = "#418fe8";
         this.item2.color = "#ffffff";
         this.item1.background = "#fff";
