@@ -56,6 +56,13 @@ const router = createRouter({
             }
 
           ]
+        },
+        {
+          path: '/eventdetail/:id',
+          name: 'eventdetail',
+          component: () => import('@/views/violent/EventDetail.vue')
+
+
         }
       ]
 
@@ -94,7 +101,8 @@ const router = createRouter({
       name: 'edit',
       component: EditProfile,
       meta: { requiredLogin: true }
-    }
+    },
+
   ]
 })
 // router.beforeEach((to, from, next) => {

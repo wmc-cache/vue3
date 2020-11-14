@@ -5,10 +5,16 @@
 			v-for="item in list"
 		>
 			<div class="header">
-				<div class="title">为什么中国要禁掉那么多优秀的动漫？</div>
+				<div
+					@click="goToDetail"
+					class="title"
+				>为什么中国要禁掉那么多优秀的动漫？</div>
 				<div class="time">2020.10.28</div>
 			</div>
-			<div class="text-img">
+			<div
+				class="text-img"
+				@click="goToDetail"
+			>
 				<img
 					v-if="image"
 					class="content-img"
@@ -58,17 +64,19 @@
 </template>
 
 <script>
-
 export default {
 	name: "EventTitle",
-	components: {
-		
-	},
+	components: {},
 	data() {
 		return {
 			list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
 			image: true
 		};
+	},
+	methods: {
+		goToDetail() {
+			this.$router.push({ path: "/eventdetail/10086" });
+		}
 	}
 };
 </script>
@@ -83,6 +91,7 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	cursor: pointer;
 }
 .title {
 	font-size: 18px;
@@ -95,6 +104,7 @@ export default {
 .text-img {
 	display: flex;
 	margin-top: 20px;
+	cursor: pointer;
 }
 .text {
 	font-size: 14px;
@@ -145,8 +155,7 @@ export default {
 }
 .agree-text {
 	margin-left: 5px;
-	color: #0084FF;
-	
+	color: #0084ff;
 }
 .dislike {
 	width: 31px;
