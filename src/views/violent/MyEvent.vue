@@ -142,6 +142,7 @@ export default {
 }
 .agree-text {
 	margin-left: 5px;
+	color: #0084ff;
 }
 .dislike {
 	width: 31px;

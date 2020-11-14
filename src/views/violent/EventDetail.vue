@@ -23,7 +23,7 @@
 				src="../../assets/mobile.jpg"
 				alt=""
 			>
-				<img
+			<img
 				class="img-content"
 				src="../../assets/mobile.jpg"
 				alt=""
@@ -71,16 +71,27 @@
 				>
 				25条评论
 			</div>
-			<div class="bottom-span"></div>
-		
+			<div class="bottom-span">
+				<div> 发表评论</div>
+
+			</div>
 
 		</div>
+
 	</div>
+	<div class="space">
+		25条评论
+	</div>
+	<comment-detail></comment-detail>
 </template>
 
 <script>
+import CommentDetail from '@/views/violent/CommentDetail'
 export default {
-	name: "EventDetail"
+	name: "EventDetail",
+	components:{
+	CommentDetail
+	}
 };
 </script>
 
@@ -154,7 +165,33 @@ img {
 	height: 15px;
 	margin-right: 6px;
 }
-.bottom-span{
-	
+.bottom-span {
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 98px;
+	height: 32px;
+	background: #418fe8;
+	opacity: 1;
+	border-radius: 6px;
+	margin-left: 470px;
+}
+
+.span {
+	height: 20px;
+	width: 100%;
+	background-color: #fff;
+}
+
+.space {
+	width: 837px;
+	height: 54px;
+	background: #f6f6f6;
+	border-radius: 10px 10px 0px 0px;
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	padding-left: 21px;
 }
 </style>

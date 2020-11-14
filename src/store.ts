@@ -87,7 +87,7 @@ const store = createStore<GlobalDataProps>({
     columns: { data: {}, currentPage: 0 },
     posts: { data: {}, loadedColumns: {} },
     user: { isLogin: false },
-    pushEventDialog: false
+    pushEventDialog: true
   },
 
 
