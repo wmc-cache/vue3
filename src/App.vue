@@ -65,4 +65,10 @@ export default defineComponent({
 	width: 1200px;
 	margin: auto;
 }
+button {
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent;
+	outline: none;
+}
 </style>

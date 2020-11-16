@@ -4,7 +4,7 @@
 		<global-header class="fixed-top"></global-header>
 		<div class="content">
 			<img
-				class="login"
+				class="login-img"
 				src="../assets/login.png"
 			>
 
@@ -122,7 +122,7 @@ export default defineComponent({
 	display: flex;
 }
 
-.login {
+.login-img {
 	margin-top: 100px;
 	width: 820px;
 	height: 547px;
@@ -157,9 +157,6 @@ export default defineComponent({
 	background-color: #418fe8 !important;
 }
 .from-button {
-	border: none;
-	background-color: transparent;
-	outline: none;
 	width: 342px;
 	height: 58px;
 	margin-top: 140px;
@@ -167,5 +164,21 @@ export default defineComponent({
 	color: #fff;
 	border-radius: 10px;
 	box-shadow: 0px 2px 14px rgba(42, 59, 84, 0.12);
+}
+
+.from-input::-webkit-input-placeholder {
+	color: #fff !important;
+}
+.from-input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #fff !important;
+}
+.from-input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #fff !important;
+}
+.from-input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #fff !important;
 }
 </style>

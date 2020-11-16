@@ -57,22 +57,26 @@
 					class="test1"
 					to="/violent"
 				>“网络暴力”实验项目</router-link>
+				<div @click="create"> 创建</div>
 
 			</div>
 		</div>
-
+		<create-violent></create-violent>
 	</div>
 </template>
 
 <script>
 import GlobalHeader from "../components/GlobalHeader";
+import CreateViolent from "@/views/CreateViolent";
 export default {
 	name: "SelectTest",
 	components: {
-		GlobalHeader
+		GlobalHeader,
+		CreateViolent
 	},
 	data() {
 		return {
+			show: false,
 			state: 0,
 			active1: {
 				backgroundColor: "#fff"
@@ -83,6 +87,11 @@ export default {
 		};
 	},
 	methods: {
+		create(){
+			console.log("showMode")
+			 this.$store.commit("showModel")
+			 console.log(this.$store.state.showModel)
+		},
 		select1() {
 			this.state = 1;
 			this.active1.backgroundColor = "#0084ff";

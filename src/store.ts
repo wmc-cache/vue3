@@ -62,6 +62,8 @@ export interface GlobalDataProps {
   posts: GlobalPostsProps;
   user: UserProps;
   pushEventDialog: boolean;
+  uploadImg: [];
+  showModel: boolean
 }
 
 //通用接口请求
@@ -87,7 +89,9 @@ const store = createStore<GlobalDataProps>({
     columns: { data: {}, currentPage: 0 },
     posts: { data: {}, loadedColumns: {} },
     user: { isLogin: false },
-    pushEventDialog: true
+    pushEventDialog: false,
+    uploadImg: [],
+    showModel: false
   },
 
 
@@ -100,6 +104,15 @@ const store = createStore<GlobalDataProps>({
     },
     cancelPushEventDialog(state) {
       state.pushEventDialog = false
+    },
+    patchUploadImg(state, data) {
+      state.uploadImg = data
+    },
+    showModel(state) {
+      state.showModel = true
+    },
+    cancelModel(state) {
+      state.showModel = false
     },
     createPost(state, { data }) {
       state.posts.data[data._id] = data
@@ -147,10 +160,12 @@ const store = createStore<GlobalDataProps>({
     //登录(token)
     login(state, rawData) {
       //console.log("token", rawData)
-      console.log("state", state)
-      const tokens = localStorage.getItem("token")
-      state.token = tokens
-      axios.defaults.headers.common.Authorization = `${tokens}`
+      //console.log("state", state)
+      console.log(rawData)
+      const token = rawData.authorization
+      state.token = token
+      localStorage.setItem('token', token)
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
     },
     //获取用户信息
     fetchCurrentUser(state, rawData) {
@@ -164,6 +179,10 @@ const store = createStore<GlobalDataProps>({
       state.user = { isLogin: false }
       localStorage.removeItem('token')
       delete axios.defaults.headers.common.Authorization
+    },
+    createProject(state, { data }) {
+       console.log(data)
+
     }
   },
 
@@ -231,8 +250,13 @@ const store = createStore<GlobalDataProps>({
     },
     //登录part2(用户信息)
     fetchCurrentUser({ commit }) {
-      return asyncAndCommit('/school/users/info', 'fetchCurrentUser', commit, { method: "post" })
+      console.log("info")
+      return asyncAndCommit('/school/info', 'fetchCurrentUser', commit)
+
     },
+    createProject({ commit },data) {
+      return asyncAndCommit('/school/project','createProject',commit,{ method: 'post', data:data })
+    }
   },
 
   //计算属性

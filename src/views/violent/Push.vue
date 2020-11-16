@@ -4,8 +4,8 @@
 
 			<validate-input
 				class="push-card-input-title"
-				:rules="userRules"
-				v-model="userVal"
+				:rules="titleRules"
+				v-model="titleVal"
 				placeholder="请输入标题（事件发布不显示发布者姓名）"
 				type="text"
 			/>
@@ -17,14 +17,15 @@
 					type="password"
 					tag="textarea"
 					placeholder="生成新事件（提倡有亲身体验的）···"
-					:rules="passwordRules"
-					v-model="passwordVal"
+					:rules="contentRules"
+					v-model="contentVal"
 				/>
 			</div>
 			<template #submit>
 				<button
 					type="submit"
 					class="push-card-cancel-button"
+					@click="cancel"
 				>取消</button>
 				<button
 					type="submit"
@@ -33,31 +34,95 @@
 			</template>
 		</validate-form>
 		<div class="upload">
-			<upload></upload>
+			<upload @uploadImg="uploadImg"></upload>
 		</div>
 
 	</div>
 
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, store } from "vue";
+import { useStore } from "vuex";
 import ValidateForm from "@/components/ValidateForm";
-import ValidateInput from "@/components/ValidateInput";
+import ValidateInput, { RulesProp } from "@/components/ValidateInput";
 import Upload from "@/components/Upload";
-export default {
+
+export default defineComponent({
 	name: "Push",
 	components: {
 		ValidateForm,
 		ValidateInput,
 		Upload
+	},
+
+	setup(props, context) {
+		//const file = [];
+		const store = useStore();
+		const cancel = () => {
+			store.commit("cancelPushEventDialog");
+		};
+		const titleVal = ref("");
+		const titleRules: RulesProp = [
+			{
+				type: "required",
+				message: "标题不能为空"
+			}
+		];
+		const contentVal = ref("");
+		const contentRules: RulesProp = [
+			{
+				type: "required",
+				message: "内容不能为空"
+			}
+		];
+		const uploadImg = (arr, button) => {
+			console.log(button);
+
+			//console.log(arr);
+		};
+
+		const onFormSubmit = (result: boolean) => {
+			console.log(props,context)
+			//this.uploadImg();
+			//
+			// if (result) {
+			// 	const payload = {
+			// 		title: titleVal.value,
+			// 		content: contentVal.value
+			// 	};
+			// 	store
+			// 		.dispatch("loginAndFetch", payload)
+			// 		.then(data => {
+			// 			notification.open({
+			// 				message: "登录成功",
+			// 				description: "欢迎"
+			// 			});
+			// 			router.push("/select");
+			// 		})
+			// 		.catch(e => {
+			// 			console.log(e);
+			// 		});
+			// }
+		};
+
+		return {
+			cancel,
+			titleVal,
+			titleRules,
+			contentVal,
+			contentRules,
+			onFormSubmit,
+			uploadImg
+		};
 	}
-};
+});
 </script>
 
 <style>
 .push-card {
 	width: 837px;
-  min-height: 330px;
+	min-height: 330px;
 	background: #ffffff;
 	box-shadow: 0px 3px 18px rgba(42, 59, 84, 0.12);
 	opacity: 1;
@@ -71,6 +136,7 @@ export default {
 	border-radius: 0 !important;
 }
 .push-card-input-content {
+	margin-top: 10px;
 	border: 0 !important;
 	height: 200px;
 }
@@ -91,9 +157,10 @@ export default {
 	border-radius: 6px;
 	color: #fff;
 	margin-left: 19px;
+	margin-top: 10px;
 }
-.upload{
-	margin-top: -35px;
+.upload {
+	margin-top: -25px;
 	margin-left: 20px;
 }
 </style>
