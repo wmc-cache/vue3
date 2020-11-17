@@ -55,13 +55,13 @@ export default {
 		},
 
 		handleOk() {
-			//this.confirmLoading = true;
-			//this.confirmLoading = false;
+		
 			this.$store.dispatch("createProject", {
 				title: `${this.title}`,
 				content: `${this.content}`,
 				state: "1"
 			});
+			this.show = this.$store.commit("cancelModel");
 		}
 	}
 };

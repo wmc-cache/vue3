@@ -105,8 +105,9 @@ export default {
 				this.item1.color = "#ffffff";
 				this.item2.background = "#fff";
 				this.item2.color = "#999999";
+			  const id  = localStorage.getItem("projectId")
 				this.$router.push({
-					path: "/violent/all"
+					path: `/violent/all/${id}`
 				});
 				return;
 			}

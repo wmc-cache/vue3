@@ -127,8 +127,8 @@ const store = createStore<GlobalDataProps>({
     //登录(token)
     login(state, rawData) {
       //console.log("token", rawData)
-      console.log("state", state)
-      console.log("login:", rawData)
+      //console.log("state", state)
+      //console.log("login:", rawData)
       const token = rawData.authorization
       state.token = token
       localStorage.setItem('token', token)
@@ -136,7 +136,7 @@ const store = createStore<GlobalDataProps>({
     },
     //获取用户信息
     fetchCurrentUser(state, rawData) {
-
+        console.log( rawData)
       state.user = { isLogin: true, ...rawData }
     },
     updateUser(state, { data }) {
@@ -150,13 +150,10 @@ const store = createStore<GlobalDataProps>({
     },
     createProject(state, { data }) {
       console.log(data)
-<<<<<<< HEAD
 
     },
     selectProject(state, { data }) {
       state.projectList = data
-=======
->>>>>>> fb85f3c6e7a1358b0f30dd8fa6046e2de0f62b95
 
     }
   },
@@ -186,14 +183,11 @@ const store = createStore<GlobalDataProps>({
     },
     createProject({ commit }, data) {
       return asyncAndCommit('/school/project', 'createProject', commit, { method: 'post', data: data })
-<<<<<<< HEAD
     },
     selectProject({ commit }, data) {
       return asyncAndCommit('/school/selectProject', 'selectProject', commit, { method: 'post', data: data })
 
 
-=======
->>>>>>> fb85f3c6e7a1358b0f30dd8fa6046e2de0f62b95
     }
   },
 

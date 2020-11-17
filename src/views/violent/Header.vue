@@ -3,18 +3,25 @@
 	<div class="body">
 		<div class="content">
 			<div class="title">“网络暴力”实验项目</div>
-			<div class="name">张耨耨</div>
+			<div class="name">{{name}}</div>
 		</div>
 	</div>
 
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 
 export default defineComponent({
 	name: "Header",
-	components: {}
+	components: {},
+	data() {
+		return {
+			name: localStorage.getItem("name")
+		};
+	},
+
+	onMounted() {}
 });
 </script>
 
@@ -25,7 +32,7 @@ export default defineComponent({
 }
 .content {
 	display: flex;
-  justify-content: space-between;
+	justify-content: space-between;
 	align-items: center;
 	width: 1200px;
 }

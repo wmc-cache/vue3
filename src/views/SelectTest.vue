@@ -53,14 +53,20 @@
 				v-if="state===1"
 				class="tetail"
 			>
-				<!-- <router-link
-					class="test1"
-					to="/violent"
-				>“网络暴力”实验项目</router-link> -->
+
 				<div
-					v-if="flag===2"
+					v-if="flag==='2'"
+					class="test1"
 					@click="create"
 				> 创建“网络暴力”实验项目</div>
+
+				<div
+					class="test1"
+					v-for="item in list"
+					@click="go(item.id)"
+				>
+					{{item.addTime}} “网络暴力”实验项目
+				</div>
 
 			</div>
 		</div>
@@ -71,20 +77,22 @@
 <script>
 import GlobalHeader from "../components/GlobalHeader";
 import CreateViolent from "@/views/CreateViolent";
+import Axios from "axios";
 export default {
 	name: "SelectTest",
 	components: {
 		GlobalHeader,
 		CreateViolent
 	},
-	mounted() {
-		this.flag = this.$store.state.user.flag;
-		 this.$store.dispatch("selectProject",{"state":1})
-		console.log(this.$store.state.user);
+	async mounted() {
+		const data = await Axios.post("/school/selectProject", { state: 1 });
+		console.log(data.data.data);
+		this.list = data.data.data;
+		this.flag = localStorage.getItem("flag");
 	},
 	data() {
 		return {
-			flag: this.$store.state.user.flag,
+			flag: 1,
 			show: false,
 			state: 0,
 			active1: {
@@ -92,7 +100,8 @@ export default {
 			},
 			active2: {
 				backgroundColor: "#fff"
-			}
+			},
+			list: []
 		};
 	},
 	methods: {
@@ -101,6 +110,10 @@ export default {
 			this.$store.commit("showModel");
 
 			console.log(this.$store.state.showModel);
+		},
+		go(id) {
+			this.$router.push({ path: `/violent/all/${id}` });
+			localStorage.setItem("projectId",id)
 		},
 		select1() {
 			this.state = 1;

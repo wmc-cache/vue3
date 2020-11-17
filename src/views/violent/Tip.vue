@@ -1,24 +1,43 @@
 <template>
 
 	<div class="tip">
-		<div class="title">实验项目简介</div>
-		<div class="date">开始日期:2020.10.28---结束日期:2020.10.28</div>
+		<div class="title">{{title}}</div>
+		<div class="date">起止日期:{{addTime}}---</div>
 		<div class="text">
-			文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。
-			文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。文字形式介绍实验项目的基本规则。包括内容、流程、目的等。
 
+			{{content}}
 		</div>
 	</div>
 
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script>
+import Axios from "axios";
 
-export default defineComponent({
+export default {
 	name: "Tip",
-	components: {}
-});
+	components: {},
+	data() {
+		return {
+			title: "",
+			content: "",
+			addTime: ""
+		};
+	},
+	async mounted() {
+		const data = await Axios.post("/school/selectProject", { state: 1 });
+		const id = localStorage.getItem("projectId");
+
+		data.data.data.forEach(ele => {
+			if (ele.id == id) {
+				this.addTime = ele.addTime;
+				this.title = ele.title;
+				this.content = ele.content;
+			}
+		});
+		console.log(data.data.data);
+	}
+};
 </script>
 
 <style scoped>

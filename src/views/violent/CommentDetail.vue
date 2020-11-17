@@ -1,11 +1,11 @@
 <template>
-	<div class="body">
+	<div class="body" v-for="item in list">
 		<div class="title">
 			<div class="name">用户3:</div>
-			<div class="time">2020.10.28</div>
+			<div class="time">{{item.addTime}}</div>
 		</div>
 		<div class="text">
-			DP口问题 换线试试 我一开始也这样 我是DP连主机 显卡HDMI连耳机 也造成这问题 后来光纤连耳机 HDMI连显示器到显卡 就没这问题了
+			{{item.content}}
 
 		</div>
 		<div class="bottom">
@@ -35,8 +35,22 @@
 </template>
 
 <script>
+import Axios from 'axios';
 export default {
-	name: "CommentDetail"
+	name: "CommentDetail",
+	data(){
+		return{
+			list:[]
+		}
+	},
+	async mounted() {
+	
+		const data = await Axios.post("/school/selectComment", {
+			eventId: this.$route.params.id
+		});
+		this.list = data.data.data
+		console.log("comment:", data.data.data);
+	}
 };
 </script>
 
@@ -70,7 +84,7 @@ export default {
 }
 .agree-text {
 	margin-left: 5px;
-  color: #0084ff;
+	color: #0084ff;
 }
 .dislike {
 	width: 31px;

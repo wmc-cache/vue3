@@ -2,11 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import axios from "axios";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
-import Signup from "./views/Signup.vue";
-import ColumnDetail from "./views/ColumnDetail.vue";
-import CreatePost from "./views/CreatePost.vue";
-import PostDetail from "./views/PostDetail.vue";
-import EditProfile from "./views/EditProfile.vue";
 import SelectTest from "./views/SelectTest.vue";
 import Violent from "./views/Violent.vue";
 import store from "./store";
@@ -29,10 +24,10 @@ const router = createRouter({
       path: "/violent",
       name: "violent",
       component: Violent,
-      redirect: "/violent/all",
+      redirect: "/violent/all/:id",
       children: [
         {
-          path: "all",
+          path: "all/:id",
           component: () => import("@/views/violent/EventTitle.vue"),
         },
         {

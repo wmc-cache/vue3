@@ -47,6 +47,7 @@ import { useStore } from "vuex";
 import ValidateForm from "@/components/ValidateForm";
 import ValidateInput, { RulesProp } from "@/components/ValidateInput";
 import Upload from "@/components/Upload";
+import Axios from "axios";
 
 export default defineComponent({
 	name: "Push",
@@ -82,28 +83,21 @@ export default defineComponent({
 			//console.log(arr);
 		};
 
-		const onFormSubmit = (result: boolean) => {
-			console.log(props,context)
-			//this.uploadImg();
-			//
-			// if (result) {
-			// 	const payload = {
-			// 		title: titleVal.value,
-			// 		content: contentVal.value
-			// 	};
-			// 	store
-			// 		.dispatch("loginAndFetch", payload)
-			// 		.then(data => {
-			// 			notification.open({
-			// 				message: "登录成功",
-			// 				description: "欢迎"
-			// 			});
-			// 			router.push("/select");
-			// 		})
-			// 		.catch(e => {
-			// 			console.log(e);
-			// 		});
-			// }
+		const onFormSubmit = async (result: boolean) => {
+			if (result) {
+				const payload = {
+					title: titleVal.value,
+					content: contentVal.value
+				};
+				const id = localStorage.getItem("projectId");
+				const data = await Axios.post("/school/event", {
+					projectId: id,
+					content: payload.content,
+					title: payload.title,
+					url: ""
+				});
+				console.log(data.data.data);
+			}
 		};
 
 		return {

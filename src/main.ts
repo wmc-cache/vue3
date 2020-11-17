@@ -8,8 +8,10 @@ import 'ant-design-vue/dist/antd.css';
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'http://api.vikingship.xyz/api/'
 axios.interceptors.request.use(config => {
-  const token = localStorage.getItem("token")
-  config.headers.Authorization = `Bearer ${token}`
+  if (localStorage.getItem("token")) {
+    const token = localStorage.getItem("token")
+    config.headers.Authorization = `Bearer ${token}`
+  }
   console.log("axios-request")
   store.commit('setLoading', true)
   store.commit('setError', { status: false, message: '' })
