@@ -82,6 +82,7 @@ const asyncAndCommit = async (url: string, mutationName: string,
   }
   return data
 }
+
 const store = createStore<GlobalDataProps>({
   //全局数据
   state: {
@@ -117,43 +118,6 @@ const store = createStore<GlobalDataProps>({
     cancelModel(state) {
       state.showModel = false
     },
-    createPost(state, { data }) {
-      state.posts.data[data._id] = data
-    },
-    fetchColumns(state, rawData) {
-      const { data } = state.columns
-      const { list, count, currentPage } = rawData.data
-      state.columns = {
-        data: { ...data, ...arrToObj(list) },
-        currentPage: currentPage * 1,
-        total: count
-      }
-    },
-    fetchColumn(state, { data }) {
-      state.columns.data[data._id] = data
-    },
-    updateColumn(state, { data }) {
-      state.columns.data[data._id] = data
-    },
-    fetchPosts(state, { data: rawData, extraData }) {
-      const { data, loadedColumns } = state.posts
-      const { list, count, currentPage } = rawData.data
-      const listData = list as PostProps[]
-      state.posts.data = { ...data, ...arrToObj(listData) }
-      loadedColumns[extraData] = {
-        total: count,
-        currentPage
-      }
-    },
-    fetchPost(state, { data }) {
-      state.posts.data[data._id] = data
-    },
-    updatePost(state, { data }) {
-      state.posts.data[data._id] = data
-    },
-    deletePost(state, { data }) {
-      delete state.posts.data[data._id]
-    },
     setLoading(state, status) {
       state.loading = status
     },
@@ -186,10 +150,13 @@ const store = createStore<GlobalDataProps>({
     },
     createProject(state, { data }) {
       console.log(data)
+<<<<<<< HEAD
 
     },
     selectProject(state, { data }) {
       state.projectList = data
+=======
+>>>>>>> fb85f3c6e7a1358b0f30dd8fa6046e2de0f62b95
 
     }
   },
@@ -197,51 +164,6 @@ const store = createStore<GlobalDataProps>({
 
   //可以异步操作
   actions: {
-    fetchColumns({ commit, state }, params = {}) {
-      const { currentPage = 1, pageSize = 6 } = params
-      if (state.columns.currentPage < currentPage) {
-        return asyncAndCommit(`/columns?currentPage=${currentPage}&pageSize=${pageSize}`, 'fetchColumns', commit)
-      }
-    },
-    fetchColumn({ commit, state }, cid) {
-      const cIdArr = Object.keys(state.columns.data)
-      if (!cIdArr.includes(cid)) {
-        return asyncAndCommit(`/columns/${cid}`, 'fetchColumn', commit)
-      }
-    },
-    fetchPosts({ commit, state }, params = {}) {
-      const { cid, currentPage = 1, pageSize = 5 } = params
-      const { loadedColumns } = state.posts
-      const loadedCurentPage = (loadedColumns[cid] && loadedColumns[cid].currentPage) || 0
-      if (!Object.keys(loadedColumns).includes(cid) || loadedCurentPage < currentPage) {
-        return asyncAndCommit(`/columns/${cid}/posts?currentPage=${currentPage}&pageSize=${pageSize}`,
-          'fetchPosts', commit, { method: 'get' }, cid)
-      }
-    },
-    fetchPost({ commit, state }, id) {
-      // we don't have this post or post detail is not loaded
-      const { data } = state.posts
-      const certainPost = data[id]
-      if (!certainPost || !certainPost.content) {
-        return asyncAndCommit(`/posts/${id}`, 'fetchPost', commit)
-      } else {
-        return Promise.resolve({ data: certainPost })
-      }
-    },
-
-
-    createPost({ commit }, payload) {
-      return asyncAndCommit('/posts', 'createPost', commit, { method: 'post', data: payload })
-    },
-    updatePost({ commit }, { id, payload }) {
-      return asyncAndCommit(`/posts/${id}`, 'updatePost', commit, { method: 'patch', data: payload })
-    },
-    deletePost({ commit }, id) {
-      return asyncAndCommit(`/posts/${id}`, 'deletePost', commit, { method: 'delete' })
-    },
-    updateColumn({ commit }, { id, payload }) {
-      return asyncAndCommit(`/columns/${id}`, 'updateColumn', commit, { method: 'patch', data: payload })
-    },
     updateUser({ commit }, { id, payload }) {
       return asyncAndCommit(`/user/${id}`, 'updateUser', commit, { method: 'patch', data: payload })
     },
@@ -264,11 +186,14 @@ const store = createStore<GlobalDataProps>({
     },
     createProject({ commit }, data) {
       return asyncAndCommit('/school/project', 'createProject', commit, { method: 'post', data: data })
+<<<<<<< HEAD
     },
     selectProject({ commit }, data) {
       return asyncAndCommit('/school/selectProject', 'selectProject', commit, { method: 'post', data: data })
 
 
+=======
+>>>>>>> fb85f3c6e7a1358b0f30dd8fa6046e2de0f62b95
     }
   },
 
