@@ -8,7 +8,7 @@
 			{{item.content}}
 
 		</div>
-		<div class="bottom">
+		<!-- <div class="bottom">
 			<div class="agree">
 				<img
 					src="../../assets/上.png"
@@ -30,7 +30,7 @@
 				>
 				25条回复
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -57,6 +57,7 @@ export default {
 <style scoped>
 .body {
 	padding: 20px;
+	border-bottom:1px solid #FFF0F2F7 ;
 }
 .title {
 	display: flex;

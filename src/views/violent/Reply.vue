@@ -17,7 +17,7 @@
 					为什么中国要禁掉那么多优秀的动漫？
 				</div>
 			</div>
-			<div class="bottom">
+			<!-- <div class="bottom">
 				<div class="agree">
 					<img
 						src="../../assets/上.png"
@@ -40,7 +40,7 @@
 					252条评论
 				</div>
 				<div class="bottom-text">原文522条评论</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 

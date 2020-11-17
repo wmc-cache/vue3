@@ -33,18 +33,18 @@ const router = createRouter({
         {
           path: "my",
           component: () => import("@/views/violent/My.vue"),
-          redirect: "/violent/my/event",
+          redirect: "/violent/my/event/:id",
           children: [
             {
-              path: "event",
+              path: "event/:id",
               component: () => import("@/views/violent/MyEvent.vue"),
             },
             {
-              path: "comment",
+              path: "comment/:id",
               component: () => import("@/views/violent/Comment.vue"),
             },
             {
-              path: "reply",
+              path: "reply/:id",
               component: () => import("@/views/violent/Reply.vue"),
             },
           ],

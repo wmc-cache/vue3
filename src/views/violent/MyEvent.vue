@@ -5,25 +5,31 @@
 			v-for="item in list"
 		>
 			<div class="header">
-				<div class="title">为什么中国要禁掉那么多优秀的动漫？</div>
-				<div class="time">2020.10.28</div>
+				<div
+					@click="goToDetail(item.id)"
+					class="title"
+				>{{item.title}}</div>
+				<div class="time">{{item.addTime}}</div>
 			</div>
-			<div class="text-img">
+			<div
+				class="text-img"
+				@click="goToDetail(item.id)"
+			>
 				<img
-					v-if="image"
+					v-if="item.url"
 					class="content-img"
 					src="../../assets/mobile.jpg"
 					alt=""
 				>
 				<div
-					v-if="image"
+					v-if="item.url"
 					class="text"
-				>曾经我也曾愤怒，但是随着年龄越来越大，我逐渐懂了广电局的良苦用心。郭嘉虽然禁了很多很多文化产品，但是并没有禁的死死的，留有百丝余地，这就很妙。对于中国青年来说，找资源就像是寻宝游戏一样，随着经验的积累与智商的提高，逐步获取需要的东西。小学时期，天真可爱，我只看奥特曼，多啦a梦，所以畅通无阻，没人禁这些玩意儿。初中，身体开始发育，开始有了欲望，渴求，初具雏形的三观。这时候精神上和身体的需求需要得到一定满足，但是不能过度。作为网络上的新手，能力相当有限曾经我也曾愤怒，但是随着年龄越来越大，我逐渐懂了广电局的良苦用心。郭嘉虽然禁了很多很多文化产品，但是并没有禁的死死的，留有百丝余地，这就很妙。对于中国青年来说，找资源就像是寻宝游戏一样，随着经验的积累与智商的提高，逐步获取需要的东西。小学时期，天真可爱，我只看奥特曼，多啦a梦，所以畅通无阻，没人禁这些玩意儿。初中，身体开始发育，开始有了欲望，渴求，初具雏形的三观。这时候精神上和身体的需求需要得到一定满足，但是不能过度。作为网络上的新手，能力相当有限</div>
+				>{{item.content}}</div>
 
 				<div
-					v-if="!image"
+					v-if="!item.url"
 					class="text-no"
-				>曾经我也曾愤怒，但是随着年龄越来越大，我逐渐懂了广电局的良苦用心。郭嘉虽然禁了很多很多文化产品，但是并没有禁的死死的，留有百丝余地，这就很妙。对于中国青年来说，找资源就像是寻宝游戏一样，随着经验的积累与智商的提高，逐步获取需要的东西。小学时期，天真可爱，我只看奥特曼，多啦a梦，所以畅通无阻，没人禁这些玩意儿。初中，身体开始发育，开始有了欲望，渴求，初具雏形的三观。这时候精神上和身体的需求需要得到一定满足，但是不能过度。作为网络上的新手，能力相当有限曾经我也曾愤怒，但是随着年龄越来越大，我逐渐懂了广电局的良苦用心。郭嘉虽然禁了很多很多文化产品，但是并没有禁的死死的，留有百丝余地，这就很妙。对于中国青年来说，找资源就像是寻宝游戏一样，随着经验的积累与智商的提高，逐步获取需要的东西。小学时期，天真可爱，我只看奥特曼，多啦a梦，所以畅通无阻，没人禁这些玩意儿。初中，身体开始发育，开始有了欲望，渴求，初具雏形的三观。这时候精神上和身体的需求需要得到一定满足，但是不能过度。作为网络上的新手，能力相当有限
+				>{{item.content}}
 				</div>
 			</div>
 
@@ -33,7 +39,7 @@
 						src="../../assets/上.png"
 						alt=""
 					>
-					<div class="agree-text">赞同51</div>
+					<div class="agree-text">赞同{{item.noPraise}}</div>
 				</div>
 				<div class="dislike">
 					<img
@@ -47,8 +53,10 @@
 						src="../../assets/message.png"
 						alt=""
 					>
-					25条评论
+					{{item.commentSum}}条评论
 				</div>
+				<div class="span1"></div>
+				<div class="sapn2"></div>
 			</div>
 		</div>
 	</div>
@@ -56,16 +64,29 @@
 </template>
 
 <script>
+import Axios from "axios";
 export default {
-	name: "MyEvent",
-	components: {
-		
-	},
+	name: "EventTitle",
+	components: {},
 	data() {
 		return {
-			list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+			list: [],
 			image: true
 		};
+	},
+	async mounted() {
+		const id = localStorage.getItem("projectId");
+		const data = await Axios.post("/school/selectEvent", {
+			projectId: id
+			
+		});
+		console.log(data.data.data);
+		this.list = data.data.data;
+	},
+	methods: {
+		goToDetail(id) {
+			this.$router.push({ path: `/eventdetail/${id}` });
+		}
 	}
 };
 </script>
@@ -80,6 +101,7 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	cursor: pointer;
 }
 .title {
 	font-size: 18px;
@@ -92,6 +114,7 @@ export default {
 .text-img {
 	display: flex;
 	margin-top: 20px;
+	cursor: pointer;
 }
 .text {
 	font-size: 14px;

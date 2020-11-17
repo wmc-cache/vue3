@@ -6,7 +6,7 @@
 		>
 			{{title}}
 		</div>
-		<div>
+		<!-- <div>
 			<img
 				class="img-content"
 				src="../../assets/mobile.jpg"
@@ -49,17 +49,27 @@
 				src="../../assets/mobile.jpg"
 				alt=""
 			>
-		</div>
+		</div> -->
 		<div class="text-content">
 			{{content}}
 		</div>
 		<div class="bottom">
 			<div class="agree">
 				<img
+					v-if="!agree"
 					src="../../assets/上.png"
 					alt=""
 				>
-				<div class="agree-text">赞同{{raise}}</div>
+				<div
+					@click="click"
+					class="agree-text"
+				>赞同
+					<span>
+						{{praise}}
+					</span>
+
+				</div>
+
 			</div>
 			<div class="dislike">
 				<img
@@ -73,7 +83,7 @@
 					src="../../assets/message.png"
 					alt=""
 				>
-				25条评论
+				{{commentSum}}条评论
 			</div>
 			<!-- <div class="bottom-span">
 				<div> 发表评论</div>
@@ -96,7 +106,7 @@
 	</div>
 
 	<div class="space">
-		25条评论
+		{{commentSum}}条评论
 	</div>
 	<comment-detail></comment-detail>
 </template>
@@ -115,7 +125,9 @@ export default {
 			content: "",
 			praise: "",
 			noPraise: "",
-			value: ""
+			value: "",
+			commentSum: "",
+			agree: false
 		};
 	},
 	async mounted() {
@@ -131,6 +143,7 @@ export default {
 				this.content = ele.content;
 				this.praise = ele.praise;
 				this.noPraise = ele.noPraise;
+				this.commentSum = ele.commentSum;
 			}
 		});
 	},
@@ -145,6 +158,10 @@ export default {
 				content: this.value
 			});
 			console.log(data);
+		},
+		click() {
+			console.log("wwww");
+			this.agree = true;
 		}
 	}
 };
@@ -193,6 +210,7 @@ export default {
 	margin-left: 5px;
 	color: #0084ff;
 }
+
 .dislike {
 	width: 31px;
 	height: 32px;

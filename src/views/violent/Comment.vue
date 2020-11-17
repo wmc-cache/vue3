@@ -15,7 +15,7 @@
 					为什么中国要禁掉那么多优秀的动漫？
 				</div>
 			</div>
-			<div class="bottom">
+			<!-- <div class="bottom">
 				<div class="bottom-span1">510人赞同观点</div>
 				<div class="bottom-span2">510人不赞同观点</div>
 				<div class="bottom-span3">
@@ -27,7 +27,7 @@
 					250条评论</div>
 				<div class="bottom-span4">原文520条评论</div>
 				<div class="bottom-span5">查看发起者事件反馈</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 

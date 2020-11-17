@@ -36,12 +36,19 @@
 			<div class="bottom">
 				<div class="agree">
 					<img
+						v-if="!item.state==1"
 						src="../../assets/上.png"
 						alt=""
 					>
-					<div class="agree-text">赞同{{item.noPraise}}</div>
+					<div
+						@click="click(item.id,item.praise,item.praiseId)"
+						class="agree-text"
+					>赞同{{item.praise}}</div>
 				</div>
-				<div class="dislike">
+				<div
+					@click="dislike(item.id,item.praise,item.praiseId)"
+					class="dislike"
+				>
 					<img
 						src="../../assets/下.png"
 						alt=""
@@ -78,14 +85,38 @@ export default {
 		const id = localStorage.getItem("projectId");
 		const data = await Axios.post("/school/selectEvent", {
 			projectId: id,
-		
+			state: "1"
 		});
 		console.log(data.data.data);
 		this.list = data.data.data;
 	},
 	methods: {
-		goToDetail(id) {
+		goToDetail(id, num) {
 			this.$router.push({ path: `/eventdetail/${id}` });
+		},
+		click(id, num, praiseId) {
+			if (praiseId) {
+				Axios.post("/school/praise", {
+					state: 1,
+					eventId: id,
+					praise: num + 1,
+					id:praiseId
+				});
+			} else {
+				Axios.post("/school/praise", {
+					state: 1,
+					eventId: id,
+					praise: num + 1
+				});
+			}
+		},
+		dislike(id, num, praiseId) {
+			Axios.post("/school/praise", {
+				state: 2,
+				eventId: id,
+				praise: num - 1,
+				id: praiseId
+			});
 		}
 	}
 };

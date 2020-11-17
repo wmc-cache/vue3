@@ -65,20 +65,20 @@ export default {
 			tagList: [
 				{ id: 1, title: "我发布的事件", link: "/violent/my/event" },
 				{ id: 2, title: "我的评论", link: "/violent/my/comment" },
-				{ id: 3, title: "回复我的", link: "/violent/my/reply" }
+				{ id: 3, title: "回复我的事件", link: "/violent/my/reply" }
 			]
 		};
 	},
 	mounted() {
 		console.log(this.$route.fullPath);
-
-		if (this.$route.fullPath === "/violent/my/event") {
+		const projectId = localStorage.getItem("projectId");
+		if (this.$route.fullPath === `/violent/my/event/${projectId}`) {
 			this.activeId = 1;
 		}
-		if (this.$route.fullPath === "/violent/my/comment") {
+		if (this.$route.fullPath === `/violent/my/comment/${projectId}`) {
 			this.activeId = 2;
 		}
-		if (this.$route.fullPath === "/violent/my/reply") {
+		if (this.$route.fullPath === `/violent/my/reply/${projectId}`) {
 			this.activeId = 3;
 		}
 
@@ -105,7 +105,7 @@ export default {
 				this.item1.color = "#ffffff";
 				this.item2.background = "#fff";
 				this.item2.color = "#999999";
-			  const id  = localStorage.getItem("projectId")
+				const id = localStorage.getItem("projectId");
 				this.$router.push({
 					path: `/violent/all/${id}`
 				});
@@ -130,8 +130,9 @@ export default {
 		changeTag(id, link) {
 			localStorage.setItem("Id", `${id}`);
 			this.activeId = id;
+			const projectId = localStorage.getItem("projectId");
 			this.$router.push({
-				path: `${link}`
+				path: `${link}/${projectId}`
 			});
 		},
 		open() {
