@@ -32,7 +32,10 @@ export default defineComponent({
 	},
 	setup() {
 		const store = useStore<GlobalDataProps>();
-		const currentUser = computed(() => store.state.user);
+		const currentUser = computed(() => {
+			location.setItem("user",store.state);
+			return store.state.user;
+		});
 		const isLoading = computed(() => store.state.loading);
 		const error = computed(() => store.state.error);
 

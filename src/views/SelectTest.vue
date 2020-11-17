@@ -53,11 +53,14 @@
 				v-if="state===1"
 				class="tetail"
 			>
-				<router-link
+				<!-- <router-link
 					class="test1"
 					to="/violent"
-				>“网络暴力”实验项目</router-link>
-				<div @click="create"> 创建</div>
+				>“网络暴力”实验项目</router-link> -->
+				<div
+					v-if="flag===2"
+					@click="create"
+				> 创建“网络暴力”实验项目</div>
 
 			</div>
 		</div>
@@ -74,8 +77,14 @@ export default {
 		GlobalHeader,
 		CreateViolent
 	},
+	mounted() {
+		this.flag = this.$store.state.user.flag;
+		 this.$store.dispatch("selectProject",{"state":1})
+		console.log(this.$store.state.user);
+	},
 	data() {
 		return {
+			flag: this.$store.state.user.flag,
 			show: false,
 			state: 0,
 			active1: {
@@ -87,10 +96,11 @@ export default {
 		};
 	},
 	methods: {
-		create(){
-			console.log("showMode")
-			 this.$store.commit("showModel")
-			 console.log(this.$store.state.showModel)
+		create() {
+			console.log("showMode");
+			this.$store.commit("showModel");
+
+			console.log(this.$store.state.showModel);
 		},
 		select1() {
 			this.state = 1;

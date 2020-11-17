@@ -1,6 +1,7 @@
 import { createStore, Commit } from 'vuex'
 import axios, { AxiosRequestConfig } from 'axios'
 import { arrToObj, objToArr } from './helper'
+import Select from 'ant-design-vue/lib/vc-select'
 export interface ResponseType<P = {}> {
   code: number;
   msg: string;
@@ -63,7 +64,8 @@ export interface GlobalDataProps {
   user: UserProps;
   pushEventDialog: boolean;
   uploadImg: [];
-  showModel: boolean
+  showModel: boolean;
+  projectList: []
 }
 
 //通用接口请求
@@ -91,7 +93,8 @@ const store = createStore<GlobalDataProps>({
     user: { isLogin: false },
     pushEventDialog: false,
     uploadImg: [],
-    showModel: false
+    showModel: false,
+    projectList: []
   },
 
 
@@ -160,8 +163,8 @@ const store = createStore<GlobalDataProps>({
     //登录(token)
     login(state, rawData) {
       //console.log("token", rawData)
-      //console.log("state", state)
-      console.log(rawData)
+      console.log("state", state)
+      console.log("login:", rawData)
       const token = rawData.authorization
       state.token = token
       localStorage.setItem('token', token)
@@ -169,7 +172,8 @@ const store = createStore<GlobalDataProps>({
     },
     //获取用户信息
     fetchCurrentUser(state, rawData) {
-      state.user = { isLogin: true, ...rawData.data }
+
+      state.user = { isLogin: true, ...rawData }
     },
     updateUser(state, { data }) {
       state.user = { isLogin: true, ...data }
@@ -181,7 +185,11 @@ const store = createStore<GlobalDataProps>({
       delete axios.defaults.headers.common.Authorization
     },
     createProject(state, { data }) {
-       console.log(data)
+      console.log(data)
+
+    },
+    selectProject(state, { data }) {
+      state.projectList = data
 
     }
   },
@@ -250,12 +258,17 @@ const store = createStore<GlobalDataProps>({
     },
     //登录part2(用户信息)
     fetchCurrentUser({ commit }) {
-      console.log("info")
+      //console.log("info")
       return asyncAndCommit('/school/info', 'fetchCurrentUser', commit)
 
     },
-    createProject({ commit },data) {
-      return asyncAndCommit('/school/project','createProject',commit,{ method: 'post', data:data })
+    createProject({ commit }, data) {
+      return asyncAndCommit('/school/project', 'createProject', commit, { method: 'post', data: data })
+    },
+    selectProject({ commit }, data) {
+      return asyncAndCommit('/school/selectProject', 'selectProject', commit, { method: 'post', data: data })
+
+
     }
   },
 
