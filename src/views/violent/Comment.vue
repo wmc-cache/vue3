@@ -1,18 +1,38 @@
 <template>
 	<div>
-		<div v-for="item in [1,2,3,4,5,6,7,8,9,10]" class="body">
+		<div
+			v-for="item in list"
+			class="body"
+		>
 			<div class="title">
 				<div class="title-span1">我:</div>
-				<div class="title-span2">发起者好感度：满意</div>
-				<div class="title-time">2020.10.28</div>
+
+				<div
+					v-if="!item.score"
+					class="title-span2"
+				>未评价</div>
+				<div
+					v-if="item.score==1"
+					class="title-span2"
+				>发起者好感度:喜欢</div>
+				<div
+					v-if="item.score==2"
+					class="title-span2"
+				>发起者好感度:中立</div>
+				<div
+					v-if="item.score==3"
+					class="title-span2"
+				>发起者好感度:讨厌</div>
+
+				<div class="title-time">{{item.updateTime}}</div>
 			</div>
 			<div class="content">
 				<div class="content-span1">
-					DP口问题 换线试试 我一开始也这样 我是DP连主机 显卡HDMI连耳机 也造成这问题 后来光纤连耳机 HDMI连显示器到显卡 就没这问题了
+					{{item.content}}
 				</div>
 
 				<div class="content-span2">
-					为什么中国要禁掉那么多优秀的动漫？
+					{{item.eventContent}}
 				</div>
 			</div>
 			<!-- <div class="bottom">
@@ -34,8 +54,19 @@
 </template>
 
 <script>
+import Axios from "axios";
 export default {
-	name: "Comment"
+	name: "Comment",
+	data() {
+		return {
+			list: []
+		};
+	},
+	async mounted() {
+		const data = await Axios.post("school/selectCommentAll", { state: 1 });
+		this.list = data.data.data;
+		console.log(data.data.data);
+	}
 };
 </script>
 
@@ -64,7 +95,7 @@ export default {
 	font-size: 14px;
 	font-weight: 400;
 	color: #707070;
-	margin-left: 163px;
+	margin-left: 53px;
 }
 .content {
 	display: flex;
@@ -127,7 +158,7 @@ export default {
 	align-items: center;
 	margin-left: 20px;
 }
-.span3-img{
+.span3-img {
 	margin-right: 5px;
 }
 .bottom-span4 {

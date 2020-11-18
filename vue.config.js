@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   lintOnSave: false,
-  outputDir: 'dist',
+  outputDir: 'wut',
   devServer: {
     proxy: {
       '/school': {

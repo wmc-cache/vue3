@@ -2,7 +2,8 @@
 
 	<div class="tip">
 		<div class="title">{{title}}</div>
-		<div class="date">起止日期:{{addTime}}---</div>
+		<div class="date">开始日期:{{addTime}}</div>
+		<div class="date-end">结束日期:{{endTime}}</div>
 		<div class="text">
 
 			{{content}}
@@ -21,10 +22,12 @@ export default {
 		return {
 			title: "",
 			content: "",
-			addTime: ""
+			addTime: "",
+			endTime:""
 		};
 	},
 	async mounted() {
+		this.endTime = localStorage.getItem("endTime")
 		const data = await Axios.post("/school/selectProject", { state: 1 });
 		const id = localStorage.getItem("projectId");
 
@@ -65,6 +68,16 @@ export default {
 	margin-left: 24px;
 	margin-top: 20px;
 }
+.date-end {
+	width: 313px;
+	font-size: 14px;
+	font-weight: 400;
+	color:#FFBB33;
+	white-space: nowrap;
+	margin-left: 24px;
+	margin-top: 20px;
+}
+
 .text {
 	margin-left: 24px;
 	margin-top: 20px;

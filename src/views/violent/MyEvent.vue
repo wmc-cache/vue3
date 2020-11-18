@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="bottom">
-				<div class="agree">
+				<!-- <div class="agree">
 					<img
 						src="../../assets/上.png"
 						alt=""
@@ -54,31 +54,44 @@
 						alt=""
 					>
 					{{item.commentSum}}条评论
-				</div>
-				<div class="span1"></div>
-				<div class="sapn2"></div>
+				</div> -->
+			
+				<div
+				  v-if="!item.feedContent"
+					class="span1"
+					@click="post(item.id)"
+				>填写事件反馈</div>
+				
+			
+
 			</div>
 		</div>
+		<feed></feed>
 	</div>
 
 </template>
 
 <script>
 import Axios from "axios";
+import feed from './Feed.vue';
+
 export default {
 	name: "EventTitle",
-	components: {},
+	components: {
+		feed
+	},
 	data() {
 		return {
+		  
 			list: [],
-			image: true
+			image: true,
+		
 		};
 	},
 	async mounted() {
 		const id = localStorage.getItem("projectId");
 		const data = await Axios.post("/school/selectEvent", {
 			projectId: id
-			
 		});
 		console.log(data.data.data);
 		this.list = data.data.data;
@@ -86,6 +99,10 @@ export default {
 	methods: {
 		goToDetail(id) {
 			this.$router.push({ path: `/eventdetail/${id}` });
+		},
+		post(id) {
+		localStorage.setItem("eventId",id)
+		this.$store.commit("showFeedModel")
 		}
 	}
 };
@@ -194,4 +211,17 @@ img {
 	height: 15px;
 	margin-right: 6px;
 }
+.span1 {
+	width: 123px;
+	height: 32px;
+	background: #418fe8;
+	opacity: 1;
+	color: #ffffff;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
 </style>

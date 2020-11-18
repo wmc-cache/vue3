@@ -63,9 +63,9 @@
 				<div
 					class="test1"
 					v-for="item in list"
-					@click="go(item.id)"
+					@click="go(item.id,item.endTime,item.end)"
 				>
-					{{item.addTime}} “网络暴力”实验项目
+					{{item.addTime}} “网络暴力”实验项目（{{item.endTime}}）
 				</div>
 
 			</div>
@@ -77,6 +77,8 @@
 <script>
 import GlobalHeader from "../components/GlobalHeader";
 import CreateViolent from "@/views/CreateViolent";
+import { startToEnd, timeNum } from "../../startToEnd";
+
 import Axios from "axios";
 export default {
 	name: "SelectTest",
@@ -88,6 +90,13 @@ export default {
 		const data = await Axios.post("/school/selectProject", { state: 1 });
 		console.log(data.data.data);
 		this.list = data.data.data;
+		let d = new Date();
+		let num = d.getTime();
+		this.list.forEach(ele => {
+			ele.endTime =
+				timeNum(startToEnd(ele.addTime)) > num ? "进行中" : "已结束";
+			ele.end = startToEnd(ele.addTime);
+		});
 		this.flag = localStorage.getItem("flag");
 	},
 	data() {
@@ -101,7 +110,8 @@ export default {
 			active2: {
 				backgroundColor: "#fff"
 			},
-			list: []
+			list: [],
+			endList: []
 		};
 	},
 	methods: {
@@ -111,9 +121,11 @@ export default {
 
 			console.log(this.$store.state.showModel);
 		},
-		go(id) {
+		go(id, state, end) {
+			localStorage.setItem("projectId", id);
+			localStorage.setItem("isEndTime", state);
+			localStorage.setItem("endTime", end);
 			this.$router.push({ path: `/violent/all/${id}` });
-			localStorage.setItem("projectId",id)
 		},
 		select1() {
 			this.state = 1;

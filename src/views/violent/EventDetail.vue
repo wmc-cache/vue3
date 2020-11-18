@@ -53,7 +53,7 @@
 		<div class="text-content">
 			{{content}}
 		</div>
-		<div class="bottom">
+		<!-- <div class="bottom">
 			<div class="agree">
 				<img
 					v-if="!agree"
@@ -77,6 +77,7 @@
 					alt=""
 				>
 			</div>
+
 			<div class="comment">
 				<img
 					class="message-icon"
@@ -85,16 +86,20 @@
 				>
 				{{commentSum}}条评论
 			</div>
-			<!-- <div class="bottom-span">
-				<div> 发表评论</div>
 
-			</div> -->
+			
 
-		</div>
+		</div> -->
 
 	</div>
-
-	<div class="postComment">
+	<div
+		v-if="feedContent"
+		class="feed"
+	>事件生成者反馈:{{feedContent}}</div>
+	<div
+		v-if="isEndTime=='进行中'"
+		class="postComment"
+	>
 
 		<textarea
 			v-model="value"
@@ -127,10 +132,13 @@ export default {
 			noPraise: "",
 			value: "",
 			commentSum: "",
-			agree: false
+			agree: false,
+			feedContent: "",
+			isEndTime: ""
 		};
 	},
 	async mounted() {
+		this.isEndTime = localStorage.getItem("isEndTime");
 		const projectId = localStorage.getItem("projectId");
 		const data = await Axios.post("/school/selectEvent", {
 			projectId: projectId
@@ -144,6 +152,7 @@ export default {
 				this.praise = ele.praise;
 				this.noPraise = ele.noPraise;
 				this.commentSum = ele.commentSum;
+				this.feedContent = ele.feedContent;
 			}
 		});
 	},
@@ -158,6 +167,7 @@ export default {
 				content: this.value
 			});
 			console.log(data);
+			location.reload();
 		},
 		click() {
 			console.log("wwww");
@@ -294,5 +304,11 @@ img {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.feed {
+	padding: 20px;
+	background-color: #ffbb33;
+	color: #fff;
 }
 </style>

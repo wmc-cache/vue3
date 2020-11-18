@@ -24,7 +24,7 @@
         <div>发布新事件</div>
       </div>
 
-      <div class="item4">剩余时间6天</div>
+      <div class="item4">{{isEndTime}}</div>
     </div>
   </div>
   <div v-if="state === '2'" class="tag">
@@ -61,6 +61,7 @@ export default {
         { id: 2, title: "我的评论", link: "/violent/my/comment" },
         { id: 3, title: "回复我的事件", link: "/violent/my/reply" },
       ],
+      isEndTime:null
     };
   },
   watch: {
@@ -68,6 +69,7 @@ export default {
   },
   mounted() {
     console.log(this.$route.fullPath);
+    this.isEndTime = localStorage.getItem("isEndTime")
     const projectId = localStorage.getItem("projectId");
     if (this.$route.fullPath === `/violent/my/event/${projectId}`) {
       this.activeId = 1;

@@ -41,12 +41,12 @@
 						alt=""
 					>
 					<div
-						@click="click(item.id,item.praise,item.praiseId)"
+						@click="click(item.id,item.praise,item.praiseId,item.state)"
 						class="agree-text"
 					>赞同{{item.praise}}</div>
 				</div>
 				<div
-					@click="dislike(item.id,item.praise,item.praiseId)"
+					@click="dislike(item.id,item.praise,item.praiseId,item.state)"
 					class="dislike"
 				>
 					<img
@@ -78,10 +78,12 @@ export default {
 	data() {
 		return {
 			list: [],
-			image: true
+			image: true,
+			isEndTime: null
 		};
 	},
 	async mounted() {
+		this.isEndTime = localStorage.getItem("isEndTime");
 		const id = localStorage.getItem("projectId");
 		const data = await Axios.post("/school/selectEvent", {
 			projectId: id,
@@ -94,29 +96,44 @@ export default {
 		goToDetail(id, num) {
 			this.$router.push({ path: `/eventdetail/${id}` });
 		},
-		click(id, num, praiseId) {
+		click(id, num, praiseId, state) {
+			if (isEndTime === "已结束") {
+				return;
+			}
+			if (state == 1) {
+				return;
+			}
 			if (praiseId) {
 				Axios.post("/school/praise", {
 					state: 1,
 					eventId: id,
 					praise: num + 1,
-					id:praiseId
+					id: praiseId
 				});
+				location.reload();
 			} else {
 				Axios.post("/school/praise", {
 					state: 1,
 					eventId: id,
 					praise: num + 1
 				});
+				location.reload();
 			}
 		},
-		dislike(id, num, praiseId) {
+		dislike(id, num, praiseId, state) {
+			if (isEndTime === "已结束") {
+				return;
+			}
+			if (state == 2) {
+				return;
+			}
 			Axios.post("/school/praise", {
 				state: 2,
 				eventId: id,
 				praise: num - 1,
 				id: praiseId
 			});
+			location.reload();
 		}
 	}
 };

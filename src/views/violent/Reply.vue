@@ -1,24 +1,29 @@
 <template>
 	<div>
 		<div
-			v-for="item in [1,2,3,4,5,6,7,8,9,10]"
+			v-for="item in list"
 			class="body"
 		>
 			<div class="title">
-				<div class="title-span1">“用户3”对我事件的评论:</div>
-				<div class="title-time">2020.10.28</div>
+				<div class="title-span1">{{item.username}}对我事件的评论:</div>
+				<div class="title-time">{{item.addTime}}</div>
 			</div>
 			<div class="content">
 				<div class="content-span1">
-					DP口问题 换线试试 我一开始也这样 我是DP连主机 显卡HDMI连耳机 也造成这问题 后来光纤连耳机 HDMI连显示器到显卡 就没这问题了
+					{{item.content}}
 				</div>
 
 				<div class="content-span2">
-					为什么中国要禁掉那么多优秀的动漫？
+					{{item.eventContent}}
 				</div>
 			</div>
-			<!-- <div class="bottom">
-				<div class="agree">
+			<div class="bottom">
+				<div
+					v-if="isEndTime=='进行中'"
+					@click="score(item.id)"
+					class="score"
+				>对评论评分</div>
+				<!-- <div class="agree">
 					<img
 						src="../../assets/上.png"
 						alt=""
@@ -39,16 +44,41 @@
 					>
 					252条评论
 				</div>
-				<div class="bottom-text">原文522条评论</div>
-			</div> -->
+				<div class="bottom-text">原文522条评论</div> -->
+			</div>
 		</div>
+		<score></score>
 	</div>
 
 </template>
 
 <script>
+import Axios from "axios";
+import Score from "@/views/violent/Score";
 export default {
-	name: "Reply"
+	name: "Reply",
+	components: {
+		Score
+	},
+	data() {
+		return {
+			list: [],
+			isEndTime: ""
+		};
+	},
+	async mounted() {
+		this.isEndTime = localStorage.getItem("isEndTime");
+		const data = await Axios.post("school/selectCommentAll", { state: "" });
+		this.list = data.data.data;
+		console.log(data.data.data);
+	},
+	methods: {
+		score(id) {
+			localStorage.setItem("score", id);
+			console.log("www");
+			this.$store.commit("showFeedModel");
+		}
+	}
 };
 </script>
 
@@ -149,9 +179,9 @@ img {
 }
 
 .bottom {
-	display: flex;
+	/* display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: center; */
 }
 
 .bottom-text {
@@ -159,5 +189,16 @@ img {
 	font-weight: 400;
 	color: #1e1e1e;
 	margin-left: 458px;
+}
+.score {
+	width: 79px;
+	height: 32px;
+	background: #0084ff;
+	opacity: 1;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
 }
 </style>

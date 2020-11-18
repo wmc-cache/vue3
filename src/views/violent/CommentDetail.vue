@@ -40,11 +40,12 @@ export default {
 	name: "CommentDetail",
 	data(){
 		return{
-			list:[]
+			list:[],
+			isEndTime:null
 		}
 	},
 	async mounted() {
-	
+		this.isEndTime = localStorage.getItem("isEndTime");
 		const data = await Axios.post("/school/selectComment", {
 			eventId: this.$route.params.id
 		});

@@ -22,17 +22,17 @@
 				/>
 			</div>
 			<template #submit>
+			
 				<button
-					type="submit"
-					class="push-card-cancel-button"
-					@click="cancel"
-				>取消</button>
-				<button
-					type="submit"
 					class="push-card-submit-button"
+					type="submit"
 				>提交</button>
 			</template>
 		</validate-form>
+			<button
+					class="push-card-cancel-button"
+					@click="cancel"
+				>取消</button>
 		<div class="upload">
 			<upload @uploadImg="uploadImg"></upload>
 		</div>
@@ -96,6 +96,7 @@ export default defineComponent({
 					title: payload.title,
 					url: ""
 				});
+				location.reload();
 				console.log(data.data.data);
 			}
 		};

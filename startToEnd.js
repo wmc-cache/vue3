@@ -1,9 +1,20 @@
-function startToEnd(nowTime) {
+export function timeNum(nowTime) {
+    let time = new Date(nowTime);
+    let timeNum = time.getTime();
+    return timeNum
+
+};
+
+
+
+
+
+export function startToEnd(nowTime) {
     let replaceTime = nowTime.replace(/-/g, '/');
     let time = new Date(replaceTime);
     const timeNum = time.getTime();
     const date = new Date();
-    date.setTime(timeNum + 1000 * 60 * 60 * 24 * 6);
+    date.setTime(timeNum + 1000 * 60 * 60 * 24 * 6*0.0000000001);
     const endTime = fmt(date)
     console.log(endTime)
     return endTime

@@ -65,6 +65,7 @@ export interface GlobalDataProps {
   pushEventDialog: boolean;
   uploadImg: [];
   showModel: boolean;
+  feedModel:boolean
   projectList: []
 }
 
@@ -95,6 +96,7 @@ const store = createStore<GlobalDataProps>({
     pushEventDialog: false,
     uploadImg: [],
     showModel: false,
+    feedModel:false,
     projectList: []
   },
 
@@ -117,6 +119,12 @@ const store = createStore<GlobalDataProps>({
     },
     cancelModel(state) {
       state.showModel = false
+    },
+    showFeedModel(state) {
+      state.feedModel = true
+    },
+    cancelFeedModel(state) {
+      state.feedModel = false
     },
     setLoading(state, status) {
       state.loading = status
