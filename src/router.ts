@@ -54,6 +54,11 @@ const router = createRouter({
           name: "eventdetail",
           component: () => import("@/views/violent/EventDetail.vue"),
         },
+        {
+          path: "/feedList",
+          name: "feedList",
+          component: () => import("@/views/violent/FeedList.vue"),
+        }
       ],
     },
     {

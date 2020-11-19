@@ -106,7 +106,7 @@
 			class="postText"
 		></textarea>
 		<div class="button-post">
-			<div @click="post">发表</div>
+			<div @click="post">发表评论</div>
 		</div>
 	</div>
 

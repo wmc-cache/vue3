@@ -3,7 +3,12 @@
 	<div class="body">
 		<div class="content">
 			<div class="title">“网络暴力”实验项目</div>
-			<div class="name">{{name}}</div>
+			<div class="name">你好{{name}}!
+
+					<router-link  class="out" to="/">退出</router-link>
+
+			</div>
+		
 		</div>
 	</div>
 
@@ -43,5 +48,9 @@ export default defineComponent({
 .name {
 	font-size: 14px;
 	color: #ffffff;
+}
+.out{
+	font-size: 14px;
+	color: #FFBB33;
 }
 </style>

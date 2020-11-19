@@ -97,7 +97,7 @@ export default {
 			this.$router.push({ path: `/eventdetail/${id}` });
 		},
 		click(id, num, praiseId, state) {
-			if (isEndTime === "已结束") {
+			if (this.isEndTime === "已结束") {
 				return;
 			}
 			if (state == 1) {
@@ -121,7 +121,7 @@ export default {
 			}
 		},
 		dislike(id, num, praiseId, state) {
-			if (isEndTime === "已结束") {
+			if (this.isEndTime === "已结束") {
 				return;
 			}
 			if (state == 2) {
