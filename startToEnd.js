@@ -5,16 +5,12 @@ export function timeNum(nowTime) {
 
 };
 
-
-
-
-
 export function startToEnd(nowTime) {
     let replaceTime = nowTime.replace(/-/g, '/');
     let time = new Date(replaceTime);
     const timeNum = time.getTime();
     const date = new Date();
-    date.setTime(timeNum + 1000 * 60 * 60 * 24 * 6 );
+    date.setTime(timeNum + 1000 * 60 * 60 * 24 * 6);
     const endTime = fmt(date)
     console.log(endTime)
     return endTime
