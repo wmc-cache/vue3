@@ -61,6 +61,7 @@ export default {
 				content: `${this.content}`,
 				state: "1"
 			});
+			location.reload()
 			this.show = this.$store.commit("cancelModel");
 		}
 	}
