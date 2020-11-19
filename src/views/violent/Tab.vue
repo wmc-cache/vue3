@@ -73,7 +73,8 @@ export default {
 	watch: {
 		$route(to, from) {
 			const projectId = localStorage.getItem("projectId");
-			if (to.path == `/violent/all/${projectId}`) {
+				const eventId = localStorage.getItem("eventId");
+			if (to.path == `/violent/all/${projectId}`||to.path ==`/eventdetail/${eventId}`) {
 				this.state = "1";
 				this.item1.background = "#418fe8";
 				this.item1.color = "#ffffff";

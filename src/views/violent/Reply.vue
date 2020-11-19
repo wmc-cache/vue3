@@ -19,7 +19,7 @@
 			</div>
 			<div class="bottom">
 				<div
-					v-if="isEndTime=='进行中'"
+					v-if="isEndTime=='进行中'&& !item.score"
 					@click="score(item.id)"
 					class="score"
 				>对评论评分</div>
