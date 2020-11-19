@@ -12,8 +12,8 @@ const router = createRouter({
     {
       path: "/",
       name: "login",
-      component: Login,
-      meta: { redirectAlreadyLogin: true },
+      component: Login
+      
     },
     {
       path: "/home",
