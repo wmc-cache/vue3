@@ -141,10 +141,11 @@ export default {
 		this.isEndTime = localStorage.getItem("isEndTime");
 		const projectId = localStorage.getItem("projectId");
 		const data = await Axios.post("/school/selectEvent", {
-			projectId: projectId
+			projectId: projectId,
+			state: "1"
 		});
 		const id = this.$route.params.id;
-		console.log("detail", data);
+		console.log("detail", data.data.data);
 		data.data.data.forEach(ele => {
 			if (ele.id == id) {
 				this.title = ele.title;
