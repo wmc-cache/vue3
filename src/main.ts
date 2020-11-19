@@ -6,7 +6,7 @@ import App from './App.vue'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'http://api.vikingship.xyz/api/'
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : ''
 axios.interceptors.request.use(config => {
   if (localStorage.getItem("token")) {
     const token = localStorage.getItem("token")
