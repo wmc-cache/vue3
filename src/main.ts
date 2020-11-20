@@ -6,7 +6,7 @@ import App from './App.vue'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'http://47.97.183.24:8001'
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://172.16.121.98:8001' : 'http://localhost:8001'
 axios.interceptors.request.use(config => {
   if (localStorage.getItem("token")) {
     const token = localStorage.getItem("token")

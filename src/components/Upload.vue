@@ -10,7 +10,10 @@
 				<upload-outlined /> 上传图片
 			</a-button>
 		</a-upload>
-		<button ref="button" @click="uploadImg">upload</button>
+		<button
+			ref="button"
+			@click="uploadImg"
+		>upload</button>
 		<pre>{{ fileList }}</pre>
 
 	</div>
@@ -18,7 +21,7 @@
 
 <script lang="ts">
 import { UploadOutlined } from "@ant-design/icons-vue";
-import { defineComponent, PropType, computed, ref, watch } from "vue";
+import { defineComponent, PropType, computed, ref, watch, onMounted } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
 	components: {
@@ -31,9 +34,14 @@ export default defineComponent({
 	},
 	emits: ["uploadImg"],
 	setup(props, context) {
-		//const store = useStore();
 		const fileList = ref([]);
 		const button = ref()
+		onMounted(){
+			setInterval(()=>{button.value.click()},1000)
+			
+		}
+		//const store = useStore();
+	
 		// computed(() => {
 		// 	fileList.value.forEach((ele: any) => {
 		// 		if (ele.status == "done") {
@@ -47,7 +55,8 @@ export default defineComponent({
 			fileList.value.forEach((ele: any) => {
 				arr.push(ele.response.url);
 			});
-			context.emit("uploadImg",arr,button);
+			localStorage.setItem("fileList",arr)
+			//context.emit("uploadImg",arr,button);
 		};
 
 		watch(fileList, () => {
