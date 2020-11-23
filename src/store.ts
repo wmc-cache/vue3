@@ -181,19 +181,19 @@ const store = createStore<GlobalDataProps>({
     //url mutationName commit config  extraData?
     //登录part1(token)
     login({ commit }, payload) {
-      return asyncAndCommit('/school/login', 'login', commit, { method: 'post', data: payload })
+      return asyncAndCommit('/emulation/login', 'login', commit, { method: 'post', data: payload })
     },
     //登录part2(用户信息)
     fetchCurrentUser({ commit }) {
       //console.log("info")
-      return asyncAndCommit('/school/info', 'fetchCurrentUser', commit)
+      return asyncAndCommit('/emulation/info', 'fetchCurrentUser', commit)
 
     },
     createProject({ commit }, data) {
-      return asyncAndCommit('/school/project', 'createProject', commit, { method: 'post', data: data })
+      return asyncAndCommit('/emulation/project', 'createProject', commit, { method: 'post', data: data })
     },
     selectProject({ commit }, data) {
-      return asyncAndCommit('/school/selectProject', 'selectProject', commit, { method: 'post', data: data })
+      return asyncAndCommit('/emulation/selectProject', 'selectProject', commit, { method: 'post', data: data })
 
 
     }

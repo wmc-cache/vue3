@@ -50,7 +50,7 @@ export default {
 	},
 	async mounted() {
     const projectId =	localStorage.getItem("projectId");
-		const data = await Axios.post("school/selectProjectFeed",{projectId});
+		const data = await Axios.post("emulation/selectProjectFeed",{projectId});
 		this.list = data.data.data;
 		console.log(data.data.data);
 	}

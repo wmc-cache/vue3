@@ -5,7 +5,6 @@
 		<div class="date">开始日期:{{addTime}}</div>
 		<div class="date-end">结束日期:{{endTime}}</div>
 		<div class="text">
-
 			{{content}}
 		</div>
 	</div>
@@ -23,12 +22,12 @@ export default {
 			title: "",
 			content: "",
 			addTime: "",
-			endTime:""
+			endTime: ""
 		};
 	},
 	async mounted() {
-		this.endTime = localStorage.getItem("endTime")
-		const data = await Axios.post("/school/selectProject", { state: 1 });
+		this.endTime = localStorage.getItem("endTime");
+		const data = await Axios.post("/emulation/selectProject", { state: 1 });
 		const id = localStorage.getItem("projectId");
 
 		data.data.data.forEach(ele => {
@@ -72,7 +71,7 @@ export default {
 	width: 313px;
 	font-size: 14px;
 	font-weight: 400;
-	color:#FFBB33;
+	color: #ffbb33;
 	white-space: nowrap;
 	margin-left: 24px;
 	margin-top: 20px;
@@ -83,12 +82,10 @@ export default {
 	margin-top: 20px;
 	padding-bottom: 20px;
 	width: 314px;
-
+	height: auto;
 	font-size: 14px;
-	font-family: Source Han Sans CN;
+   white-space: wrap;
 	font-weight: 400;
-	line-height: 24px;
-	color: #707070;
-	opacity: 1;
+  color: #707070;
 }
 </style>

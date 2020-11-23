@@ -61,7 +61,8 @@ export default {
 				content: `${this.content}`,
 				state: "1"
 			});
-			location.reload()
+			setTimeout(()=>{ location.reload()},3000)
+			
 			this.show = this.$store.commit("cancelModel");
 		}
 	}

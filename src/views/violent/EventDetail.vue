@@ -140,7 +140,7 @@ export default {
 	async mounted() {
 		this.isEndTime = localStorage.getItem("isEndTime");
 		const projectId = localStorage.getItem("projectId");
-		const data = await Axios.post("/school/selectEvent", {
+		const data = await Axios.post("/emulation/selectEvent", {
 			projectId: projectId,
 			state: "1"
 		});
@@ -163,7 +163,7 @@ export default {
 		},
 		async post() {
 			const id = this.$route.params.id;
-			const data = await Axios.post("/school/comment", {
+			const data = await Axios.post("/emulation/comment", {
 				eventId: id,
 				content: this.value
 			});

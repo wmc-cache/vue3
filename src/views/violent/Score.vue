@@ -58,7 +58,7 @@ export default {
 			this.$store.commit("cancelFeedModel");
 			const id = localStorage.getItem("score");
 		
-			const data = await Axios.post("/school/comment", {
+			const data = await Axios.post("/emulation/comment", {
 				id: id,
 				score: this.active
 			});

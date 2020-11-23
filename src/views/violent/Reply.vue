@@ -68,7 +68,7 @@ export default {
 	},
 	async mounted() {
 		this.isEndTime = localStorage.getItem("isEndTime");
-		const data = await Axios.post("school/selectCommentAll", { state: "" });
+		const data = await Axios.post("emulation/selectCommentAll", { state: "" });
 		this.list = data.data.data;
 		console.log(data.data.data);
 	},

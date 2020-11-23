@@ -2,15 +2,15 @@ const path = require('path');
 module.exports = {
   lintOnSave: false,
   outputDir: 'school',
-  // devServer: {
-  //   proxy: {
-  //     '/school': {
-  //       target: 'http://192.168.8.13:9001',
-  //       changOrigin: true
-  //     }
+  devServer: {
+    proxy: {
+      '/emulation': {
+        target: 'http://peri.xxlun.com',
+        changOrigin: true
+      }
 
-  //   }
-  // },
+    }
+  },
   configureWebpack: config => {
     return {
       resolve: {

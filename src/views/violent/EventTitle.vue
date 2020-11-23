@@ -85,7 +85,7 @@ export default {
 	async mounted() {
 		this.isEndTime = localStorage.getItem("isEndTime");
 		const id = localStorage.getItem("projectId");
-		const data = await Axios.post("/school/selectEvent", {
+		const data = await Axios.post("/emulation/selectEvent", {
 			projectId: id,
 			state: "1"
 		});
@@ -95,6 +95,7 @@ export default {
 	methods: {
 		goToDetail(id, num) {
 			this.$router.push({ path: `/eventdetail/${id}` });
+			localStorage.setItem("eventId",id)
 		},
 		click(id, num, praiseId, state) {
 			if (this.isEndTime === "已结束") {
@@ -104,7 +105,7 @@ export default {
 				return;
 			}
 			if (praiseId) {
-				Axios.post("/school/praise", {
+				Axios.post("/emulation/praise", {
 					state: 1,
 					eventId: id,
 					praise: num + 1,
@@ -112,7 +113,7 @@ export default {
 				});
 				location.reload();
 			} else {
-				Axios.post("/school/praise", {
+				Axios.post("/emulation/praise", {
 					state: 1,
 					eventId: id,
 					praise: num + 1
@@ -127,7 +128,7 @@ export default {
 			if (state == 2) {
 				return;
 			}
-			Axios.post("/school/praise", {
+			Axios.post("/emulation/praise", {
 				state: 2,
 				eventId: id,
 				praise: num - 1,

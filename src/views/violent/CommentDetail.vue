@@ -46,7 +46,7 @@ export default {
 	},
 	async mounted() {
 		this.isEndTime = localStorage.getItem("isEndTime");
-		const data = await Axios.post("/school/selectComment", {
+		const data = await Axios.post("/emulation/selectComment", {
 			eventId: this.$route.params.id
 		});
 		this.list = data.data.data

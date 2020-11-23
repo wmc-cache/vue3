@@ -22,17 +22,17 @@
 				/>
 			</div>
 			<template #submit>
-			
+
 				<button
 					class="push-card-submit-button"
 					type="submit"
 				>提交</button>
 			</template>
 		</validate-form>
-			<button
-					class="push-card-cancel-button"
-					@click="cancel"
-				>取消</button>
+		<button
+			class="push-card-cancel-button"
+			@click="cancel"
+		>取消</button>
 		<div class="upload">
 			<upload @uploadImg="uploadImg"></upload>
 		</div>
@@ -61,6 +61,7 @@ export default defineComponent({
 		//const file = [];
 		const store = useStore();
 		const cancel = () => {
+			clearInterval(window.timer)
 			store.commit("cancelPushEventDialog");
 		};
 		const titleVal = ref("");
@@ -77,10 +78,10 @@ export default defineComponent({
 				message: "内容不能为空"
 			}
 		];
-		const uploadImg = (arr, button) => {
-			console.log(button);
+		const uploadImg = (arr) => {
+		
 
-			//console.log(arr);
+			console.log(arr);
 		};
 
 		const onFormSubmit = async (result: boolean) => {
@@ -90,7 +91,7 @@ export default defineComponent({
 					content: contentVal.value
 				};
 				const id = localStorage.getItem("projectId");
-				const data = await Axios.post("/school/event", {
+				const data = await Axios.post("/emulation/event", {
 					projectId: id,
 					content: payload.content,
 					title: payload.title,

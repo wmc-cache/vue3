@@ -71,7 +71,7 @@ export default defineComponent({
 			const projectId = localStorage.getItem("projectId");
 			const content = value.value;
 
-			const data = await Axios.post("school/projectFeed", {
+			const data = await Axios.post("emulation/projectFeed", {
 				projectId,
 				content
 			});

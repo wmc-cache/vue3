@@ -63,7 +63,7 @@ export default {
 		};
 	},
 	async mounted() {
-		const data = await Axios.post("school/selectCommentAll", { state: 1 });
+		const data = await Axios.post("/emulation/selectCommentAll", { state: 1 });
 		this.list = data.data.data;
 		console.log(data.data.data);
 	}

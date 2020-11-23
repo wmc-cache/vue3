@@ -30,6 +30,8 @@
             <button type="submit" class="from-button">登录</button>
           </template>
         </validate-form>
+        
+        
       </div>
     </div>
   </div>

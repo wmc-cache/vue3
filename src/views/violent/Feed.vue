@@ -46,7 +46,7 @@ export default {
 			this.$store.commit("cancelFeedModel");
 			const id = localStorage.getItem("projectId");
 			const eventId = localStorage.getItem("eventId");
-			const data = await Axios.post("/school/eventFeed", {
+			const data = await Axios.post("/emulation/eventFeed", {
 				eventId: eventId,
 				content: this.value
       });

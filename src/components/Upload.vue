@@ -11,6 +11,7 @@
 			</a-button>
 		</a-upload>
 		<button
+			class="button"
 			ref="button"
 			@click="uploadImg"
 		>upload</button>
@@ -21,7 +22,15 @@
 
 <script lang="ts">
 import { UploadOutlined } from "@ant-design/icons-vue";
-import { defineComponent, PropType, computed, ref, watch, onMounted } from "vue";
+import {
+	defineComponent,
+	PropType,
+	computed,
+	ref,
+	watch,
+	onMounted,
+	onUnmounted
+} from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
 	components: {
@@ -32,45 +41,29 @@ export default defineComponent({
 			type: Function
 		}
 	},
+
 	emits: ["uploadImg"],
 	setup(props, context) {
 		const fileList = ref([]);
-		const button = ref()
-		onMounted(){
-			setInterval(()=>{button.value.click()},1000)
-			
-		}
-		//const store = useStore();
+		const button = ref();
+    
+		onMounted(() => {
+		
+		window.timer =	setInterval(() => {
+				button.value.click();
+			}, 2000);
+		});
 	
-		// computed(() => {
-		// 	fileList.value.forEach((ele: any) => {
-		// 		if (ele.status == "done") {
-		// 			console.log(ele.response.url);
-		// 		}
-		// 	});
-		// });
 
 		const uploadImg = () => {
-			const arr = [];
+			let arr = [];
 			fileList.value.forEach((ele: any) => {
 				arr.push(ele.response.url);
 			});
-			localStorage.setItem("fileList",arr)
-			//context.emit("uploadImg",arr,button);
+
+			context.emit("uploadImg", arr);
 		};
 
-		watch(fileList, () => {
-			fileList.value.forEach((ele: any) => {
-				if (ele.status == "done") {
-					console.log(ele.response.url);
-				}
-			});
-		});
-		// const fabu = () => {
-		//     fileList.value.forEach((ele: any) => {
-		//         console.log(ele.response.url);
-		//     });
-		// };
 		return {
 			fileList,
 			uploadImg,
@@ -93,6 +86,9 @@ export default defineComponent({
 
 .upload-list-inline ::v-deep(.ant-upload-animate-leave) {
 	animation-name: uploadAnimateInlineOut;
+}
+.button {
+	display: none;
 }
 /* .upload{
 	margin-left:620px ;

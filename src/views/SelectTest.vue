@@ -87,7 +87,7 @@ export default {
 		CreateViolent
 	},
 	async mounted() {
-		const data = await Axios.post("/school/selectProject", { state: 1 });
+		const data = await Axios.post("/emulation/selectProject", { state: 1 });
 		console.log(data.data.data);
 		this.list = data.data.data;
 		let d = new Date();
