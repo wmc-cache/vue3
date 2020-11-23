@@ -15,7 +15,7 @@
 			ref="button"
 			@click="uploadImg"
 		>upload</button>
-		<pre>{{ fileList }}</pre>
+		<!-- <pre>{{ fileList }}</pre> -->
 
 	</div>
 </template>
@@ -46,14 +46,12 @@ export default defineComponent({
 	setup(props, context) {
 		const fileList = ref([]);
 		const button = ref();
-    
+
 		onMounted(() => {
-		
-		window.timer =	setInterval(() => {
+			window.timer = setInterval(() => {
 				button.value.click();
 			}, 2000);
 		});
-	
 
 		const uploadImg = () => {
 			let arr = [];

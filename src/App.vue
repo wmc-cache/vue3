@@ -37,10 +37,11 @@ export default defineComponent({
 			() => error.value.status,
 			() => {
 				const { status, message } = error.value;
-				if (status && message) {
+				console.log(error.value);
+				if (status) {
 					notification.error({
 						message: "错误",
-						description: `${message}`,
+						description: "账号或密码错误",
 						placement: "bottomRight"
 					});
 				}

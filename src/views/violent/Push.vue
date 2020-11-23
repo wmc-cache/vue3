@@ -61,7 +61,7 @@ export default defineComponent({
 		//const file = [];
 		const store = useStore();
 		const cancel = () => {
-			clearInterval(window.timer)
+			clearInterval(window.timer);
 			store.commit("cancelPushEventDialog");
 		};
 		const titleVal = ref("");
@@ -78,9 +78,7 @@ export default defineComponent({
 				message: "内容不能为空"
 			}
 		];
-		const uploadImg = (arr) => {
-		
-
+		const uploadImg = arr => {
 			console.log(arr);
 		};
 
@@ -137,7 +135,9 @@ export default defineComponent({
 	height: 200px;
 }
 .push-card-cancel-button {
-	margin-left: 483px;
+	position: absolute;
+	margin-left: 683px;
+	margin-top: -40px;
 	width: 107px;
 	height: 40px;
 	background: #999999;
@@ -153,10 +153,10 @@ export default defineComponent({
 	border-radius: 6px;
 	color: #fff;
 	margin-left: 19px;
-	margin-top: 10px;
+	margin-top: 40px;
 }
 .upload {
-	margin-top: -25px;
+	margin-top: 10px;
 	margin-left: 20px;
 }
 </style>
