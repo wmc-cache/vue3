@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<a-upload
-			action="http://localhost:3000/upload"
+			:headers="{Authorization:`Bearer ${token}`}"
+			action="/emulation/uploadFile"
 			list-type="picture"
 			v-model:fileList="fileList"
 		>
@@ -46,26 +47,27 @@ export default defineComponent({
 	setup(props, context) {
 		const fileList = ref([]);
 		const button = ref();
-
+		const token = ref("");
 		onMounted(() => {
 			window.timer = setInterval(() => {
 				button.value.click();
 			}, 2000);
+			token.value = localStorage.getItem("token");
 		});
 
 		const uploadImg = () => {
 			let arr = [];
 			fileList.value.forEach((ele: any) => {
-				arr.push(ele.response.url);
+				arr.push(ele.response.data.picName);
 			});
-
 			context.emit("uploadImg", arr);
 		};
 
 		return {
 			fileList,
 			uploadImg,
-			button
+			button,
+			token
 		};
 	}
 });

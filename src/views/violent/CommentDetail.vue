@@ -1,15 +1,18 @@
 <template>
-	<div class="body" v-for="item in list">
+	<div
+		class="body"
+		v-for="item in list"
+	>
 		<div class="title">
-			<div class="name">用户3:</div>
-			<div class="time">{{item.addTime}}</div>
+			<div class="name">{{item.username}}</div>
+			<div class="time">{{item.updateTime}}</div>
 		</div>
 		<div class="text">
 			{{item.content}}
 
 		</div>
-		<!-- <div class="bottom">
-			<div class="agree">
+		<div class="bottom">
+			<!-- <div class="agree">
 				<img
 					src="../../assets/上.png"
 					alt=""
@@ -21,8 +24,11 @@
 					src="../../assets/下.png"
 					alt=""
 				>
-			</div>
-			<div class="comment">
+			</div> -->
+			<div
+				@click="isShow(item.id)"
+				class="comment"
+			>
 				<img
 					class="message-icon"
 					src="../../assets/message.png"
@@ -30,27 +36,41 @@
 				>
 				25条回复
 			</div>
-		</div> -->
+
+		</div>
+		<div v-if="activeId===item.id">
+			<comment-reply></comment-reply>
+		</div>
 	</div>
 </template>
 
 <script>
-import Axios from 'axios';
+import CommentReply from "@/views/violent/CommentReply";
+import Axios from "axios";
 export default {
 	name: "CommentDetail",
-	data(){
-		return{
-			list:[],
-			isEndTime:null
-		}
+	components: {
+		CommentReply
+	},
+	data() {
+		return {
+			list: [],
+			isEndTime: null,
+			activeId: null
+		};
 	},
 	async mounted() {
 		this.isEndTime = localStorage.getItem("isEndTime");
 		const data = await Axios.post("/emulation/selectComment", {
 			eventId: this.$route.params.id
 		});
-		this.list = data.data.data
+		this.list = data.data.data;
 		console.log("comment:", data.data.data);
+	},
+	methods: {
+		isShow(id) {
+			this.activeId = id;
+		}
 	}
 };
 </script>
@@ -58,7 +78,7 @@ export default {
 <style scoped>
 .body {
 	padding: 20px;
-	border-bottom:1px solid #FFF0F2F7 ;
+	border-bottom: 1px solid #fff0f2f7;
 }
 .title {
 	display: flex;

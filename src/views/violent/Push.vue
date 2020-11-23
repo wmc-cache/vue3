@@ -78,8 +78,11 @@ export default defineComponent({
 				message: "内容不能为空"
 			}
 		];
+		const url = [];
 		const uploadImg = arr => {
-			console.log(arr);
+			console.log("!!!!!!!!!", arr);
+			url.value = arr;
+			//localStorage.setItem("url", arr);
 		};
 
 		const onFormSubmit = async (result: boolean) => {
@@ -89,11 +92,12 @@ export default defineComponent({
 					content: contentVal.value
 				};
 				const id = localStorage.getItem("projectId");
+
 				const data = await Axios.post("/emulation/event", {
 					projectId: id,
 					content: payload.content,
 					title: payload.title,
-					url: ""
+					url: `${url.value}`
 				});
 				location.reload();
 				console.log(data.data.data);

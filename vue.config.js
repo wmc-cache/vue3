@@ -3,9 +3,16 @@ module.exports = {
   lintOnSave: false,
   outputDir: 'school',
   devServer: {
+    // proxy: {
+    //   '/emulation': {
+    //     target: 'http://peri.xxlun.com',
+    //     changOrigin: true
+    //   }
+
+    // },
     proxy: {
       '/emulation': {
-        target: 'http://peri.xxlun.com',
+        target: 'http://192.168.8.13:8001',
         changOrigin: true
       }
 

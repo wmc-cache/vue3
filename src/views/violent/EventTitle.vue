@@ -15,22 +15,19 @@
 				class="text-img"
 				@click="goToDetail(item.id)"
 			>
-				<img
-					v-if="item.url"
-					class="content-img"
-					src="../../assets/mobile.jpg"
-					alt=""
-				>
-				<div
-					v-if="item.url"
-					class="text"
-				>{{item.content}}</div>
 
-				<div
+				<img
+					v-for="card  in  {item.url}"
+					class="content-img"
+					:src=`http://192.168.8.13:8001/emulation/${card}`
+				>
+				<div class="text">{{item.content}}</div>
+
+				<!-- <div
 					v-if="!item.url"
 					class="text-no"
 				>{{item.content}}
-				</div>
+				</div> -->
 			</div>
 
 			<div class="bottom">
@@ -78,8 +75,9 @@ export default {
 	data() {
 		return {
 			list: [],
-			image: true,
-			isEndTime: null
+			isEndTime: null,
+			url: [],
+			eleUrl: []
 		};
 	},
 	async mounted() {
@@ -91,11 +89,33 @@ export default {
 		});
 		console.log(data.data.data);
 		this.list = data.data.data;
+		[...this.list].forEach(ele => {
+			console.log("ele", ele.url);
+			this.url.push(ele.url);
+		});
+		this.url.forEach(ele => {
+			if (ele == "") {
+				this.eleUrl.push("");
+			} else {
+				console.log(ele.split(","));
+				this.eleUrl.push(ele.split(","));
+			}
+		});
+		[...this.list].forEach(ele => {
+			console.log(">>>", ele.url.split(","));
+			this.list.url = ele.url.split(",");
+		});
+
+		console.log("aaaa", this.list);
+
+		// console.log("eleUrl", this.eleUrl);
+		// console.log("@@@@@", this.url);
+		// console.log("!!!!!!!!!", data.data.data);
 	},
 	methods: {
 		goToDetail(id, num) {
 			this.$router.push({ path: `/eventdetail/${id}` });
-			localStorage.setItem("eventId",id)
+			localStorage.setItem("eventId", id);
 		},
 		click(id, num, praiseId, state) {
 			if (this.isEndTime === "已结束") {

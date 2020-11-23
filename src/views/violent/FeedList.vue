@@ -1,14 +1,12 @@
 <template>
 	<div>
-     
+
 		<div
 			v-for="item in list"
 			class="body"
 		>
 			<div class="title">
-				<div class="title-span1">我:</div>
-
-			
+				<div class="title-span1">{{item.username}}</div>
 
 				<div class="title-time">{{item.updateTime}}</div>
 			</div>
@@ -49,8 +47,8 @@ export default {
 		};
 	},
 	async mounted() {
-    const projectId =	localStorage.getItem("projectId");
-		const data = await Axios.post("emulation/selectProjectFeed",{projectId});
+		const projectId = localStorage.getItem("projectId");
+		const data = await Axios.post("emulation/selectProjectFeed", { projectId });
 		this.list = data.data.data;
 		console.log(data.data.data);
 	}

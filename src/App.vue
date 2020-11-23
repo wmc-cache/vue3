@@ -3,13 +3,16 @@
 		<loader v-if="isLoading"></loader>
 
 		<router-view> </router-view>
-
+		<!-- <a
+			ref="a"
+			href="http://www.baidu.com"
+		></a> -->
 		<a-back-top />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, watch } from "vue";
+import { defineComponent, computed, onMounted, watch, ref } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,7 +28,13 @@ export default defineComponent({
 		Loader
 	},
 	setup() {
+		// onMounted(() => {
+		// 	if (window.screen.availWidth > 1100) {
+		// 		a.value.click();
+		// 	}
+		// });
 		const store = useStore();
+		const a = ref();
 		const currentUser = computed(() => store.state.user);
 		const isLoading = computed(() => store.state.loading);
 		const error = computed(() => store.state.error);
@@ -41,7 +50,6 @@ export default defineComponent({
 				if (status) {
 					notification.error({
 						message: "错误",
-						description: "账号或密码错误",
 						placement: "bottomRight"
 					});
 				}
@@ -50,7 +58,8 @@ export default defineComponent({
 		return {
 			currentUser,
 			isLoading,
-			error
+			error,
+			a
 		};
 	}
 });
