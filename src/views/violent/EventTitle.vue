@@ -17,9 +17,10 @@
 			>
 
 				<img
-					v-for="card  in  {item.url}"
+					v-for="card  in  item.url"
 					class="content-img"
-					:src=`http://192.168.8.13:8001/emulation/${card}`
+					:key="card"
+					src="`http://192.168.8.13:8001/emulation/${card}`"
 				>
 				<div class="text">{{item.content}}</div>
 
