@@ -13,7 +13,7 @@
 
 		</div>
 		<div class="bottom">
-			<div @click="reply(item.userId)">回复</div>
+			<div @click="reply(item.id)">回复</div>
 			<!-- <div class="agree">
 				<img
 					src="../../assets/上.png"
