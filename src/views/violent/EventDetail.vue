@@ -9,7 +9,7 @@
 		<img
 			class="img-content"
 			v-for="item in url"
-			:src="`http://192.168.8.13:8001/emulation/img/${item}`"
+			:src="`http://peri.xxlun.com/emulation/img/${item}`"
 			alt=""
 		>
 		<div class="text-content">

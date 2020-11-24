@@ -3,6 +3,7 @@
 		<div
 			class="body"
 			v-for="item in list"
+			:key="item.id"
 		>
 			<div class="header">
 				<div

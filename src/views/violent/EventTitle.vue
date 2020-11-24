@@ -19,7 +19,7 @@
 				<img
 					v-for="card  in  item.url"
 					class="content-img"
-					:src="`http://192.168.8.13:8001/emulation/img/${card}`"
+					:src="`http://peri.xxlun.com/emulation/img/${card}`"
 				>
 				<div class="text">{{item.content}}</div>
 
@@ -181,8 +181,9 @@ export default {
 	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 }
+
 .content-img {
-	object-fit: cover;
+     
 	width: 266px !important;
 	height: 143px !important;
 	background: #ffffff;
