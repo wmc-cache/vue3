@@ -1,16 +1,32 @@
 <template>
-	<div class="CommentReply-body">
+	<div
+		v-for="item in list"
+		class="CommentReply-body"
+	>
 		<div class="name">
-			用户5回复用户3：
+			{{item.username}}
 		</div>
-		<div class="text">DP口问题 换线试试 我一开始也这样 我是DP连主机 显卡HDMI连耳机 也造成这问题 后来光纤连耳机 HDMI连显示器到显卡 就没这问题了
+		<div class="text">{{item.content}}
 		</div>
 	</div>
 </template>
 
 <script>
+import Axios from "axios";
 export default {
-	name: "CommentReply"
+	name: "CommentReply",
+	data() {
+		list: [];
+	},
+	async mounted() {
+		const id = localStorage.getItem("parentId");
+		const data = await Axios.post("/emulation/selectComment", {
+			eventId: this.$route.params.id,
+			parentId: id
+		});
+		this.list = data.data.data;
+		console.log("!!!!!", data);
+	}
 };
 </script>
 

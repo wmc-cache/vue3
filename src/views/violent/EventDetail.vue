@@ -6,50 +6,12 @@
 		>
 			{{title}}
 		</div>
-		<!-- <div>
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-
-			<img
-				class="img-content"
-				src="../../assets/mobile.jpg"
-				alt=""
-			>
-		</div> -->
+		<img
+			class="img-content"
+			v-for="item in url"
+			:src="`http://192.168.8.13:8001/emulation/img/${item}`"
+			alt=""
+		>
 		<div class="text-content">
 			{{content}}
 		</div>
@@ -134,7 +96,8 @@ export default {
 			commentSum: "",
 			agree: false,
 			feedContent: "",
-			isEndTime: ""
+			isEndTime: "",
+			url: ""
 		};
 	},
 	async mounted() {
@@ -154,6 +117,7 @@ export default {
 				this.noPraise = ele.noPraise;
 				this.commentSum = ele.commentSum;
 				this.feedContent = ele.feedContent;
+				this.url = ele.url.split(",");
 			}
 		});
 	},

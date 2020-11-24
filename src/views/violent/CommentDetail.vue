@@ -12,6 +12,7 @@
 
 		</div>
 		<div class="bottom">
+			<div @click="reply(item.userId)">回复</div>
 			<!-- <div class="agree">
 				<img
 					src="../../assets/上.png"
@@ -26,7 +27,7 @@
 				>
 			</div> -->
 			<div
-				@click="isShow(item.id)"
+				@click="isShow(item.id,item.userId)"
 				class="comment"
 			>
 				<img
@@ -41,16 +42,19 @@
 		<div v-if="activeId===item.id">
 			<comment-reply></comment-reply>
 		</div>
+		<feed-comment></feed-comment>
 	</div>
 </template>
 
 <script>
 import CommentReply from "@/views/violent/CommentReply";
+import FeedComment from "@/views/violent/FeedComment";
 import Axios from "axios";
 export default {
 	name: "CommentDetail",
 	components: {
-		CommentReply
+		CommentReply,
+		FeedComment
 	},
 	data() {
 		return {
@@ -62,14 +66,20 @@ export default {
 	async mounted() {
 		this.isEndTime = localStorage.getItem("isEndTime");
 		const data = await Axios.post("/emulation/selectComment", {
-			eventId: this.$route.params.id
+			eventId: this.$route.params.id,
+			parentId: 0
 		});
 		this.list = data.data.data;
 		console.log("comment:", data.data.data);
 	},
 	methods: {
-		isShow(id) {
+		isShow(id, parentId) {
 			this.activeId = id;
+			localStorage.setItem("parentId", parentId);
+		},
+		reply(parentId) {
+			this.$store.commit("showFeedModel");
+			localStorage.setItem("parentId", parentId);
 		}
 	}
 };

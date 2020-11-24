@@ -17,9 +17,9 @@
 			>
 
 				<img
-					v-for="card  in  {{item.url}}"
+					v-for="card  in  item.url"
 					class="content-img"
-					:src=`http://192.168.8.13:8001/emulation/${card}`
+					:src="`http://192.168.8.13:8001/emulation/img/${card}`"
 				>
 				<div class="text">{{item.content}}</div>
 
@@ -89,28 +89,13 @@ export default {
 		});
 		console.log(data.data.data);
 		this.list = data.data.data;
-		[...this.list].forEach(ele => {
-			console.log("ele", ele.url);
-			this.url.push(ele.url);
-		});
-		this.url.forEach(ele => {
-			if (ele == "") {
-				this.eleUrl.push("");
-			} else {
-				console.log(ele.split(","));
-				this.eleUrl.push(ele.split(","));
-			}
-		});
+
 		[...this.list].forEach(ele => {
 			console.log(">>>", ele.url.split(","));
-			this.list.url = ele.url.split(",");
+			ele.url = ele.url.split(",", 1);
 		});
 
 		console.log("aaaa", this.list);
-
-		// console.log("eleUrl", this.eleUrl);
-		// console.log("@@@@@", this.url);
-		// console.log("!!!!!!!!!", data.data.data);
 	},
 	methods: {
 		goToDetail(id, num) {
