@@ -16,22 +16,15 @@
 				class="text-img"
 				@click="goToDetail(item.id)"
 			>
-				<img
-					v-if="item.url"
-					class="content-img"
-					src="../../assets/mobile.jpg"
-					alt=""
-				>
-				<div
-					v-if="item.url"
-					class="text"
-				>{{item.content}}</div>
 
-				<div
-					v-if="!item.url"
-					class="text-no"
-				>{{item.content}}
-				</div>
+				<img
+					v-if="!(item.url[0]=='')"
+					class="content-img"
+					:src="`http://peri.xxlun.com/emulation/img/${item.url[0]}`"
+				>
+				<div class="text">{{item.content}}</div>
+
+				
 			</div>
 
 			<div class="bottom">
@@ -96,6 +89,10 @@ export default {
 		});
 		console.log(data.data.data);
 		this.list = data.data.data;
+		[...this.list].forEach(ele => {
+			console.log(">>>", ele.url.split(","));
+			ele.url = ele.url.split(",", 1);
+		});
 	},
 	methods: {
 		goToDetail(id) {
@@ -146,7 +143,6 @@ export default {
 	-webkit-box-orient: vertical;
 }
 .content-img {
-	object-fit: cover;
 	width: 266px !important;
 	height: 143px !important;
 	background: #ffffff;

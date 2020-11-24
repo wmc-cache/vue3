@@ -3,7 +3,8 @@
 		<div
 			class="body"
 			v-for="item in list"
-		>
+			:key="item.id"
+		> 
 			<div class="header">
 				<div
 					@click="goToDetail(item.id)"
@@ -17,17 +18,13 @@
 			>
 
 				<img
-					v-for="card  in  item.url"
+					v-if="!(item.url[0]=='')"
 					class="content-img"
-					:src="`http://peri.xxlun.com/emulation/img/${card}`"
+					:src="`http://peri.xxlun.com/emulation/img/${item.url[0]}`"
 				>
 				<div class="text">{{item.content}}</div>
 
-				<!-- <div
-					v-if="!item.url"
-					class="text-no"
-				>{{item.content}}
-				</div> -->
+				
 			</div>
 
 			<div class="bottom">
@@ -87,15 +84,15 @@ export default {
 			projectId: id,
 			state: "1"
 		});
-		console.log(data.data.data);
+		//console.log(data.data.data);
 		this.list = data.data.data;
 
 		[...this.list].forEach(ele => {
-			console.log(">>>", ele.url.split(","));
+			//console.log(">>>", ele.url.split(","));
 			ele.url = ele.url.split(",", 1);
 		});
 
-		console.log("aaaa", this.list);
+		//console.log("aaaa", this.list);
 	},
 	methods: {
 		goToDetail(id, num) {

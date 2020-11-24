@@ -4,6 +4,7 @@
 		<div
 			v-for="item in list"
 			class="body"
+			:key="item.id"
 		>
 			<div class="title">
 				<div class="title-span1">{{item.username}}</div>

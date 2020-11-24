@@ -2,6 +2,7 @@
 	<div
 		class="body"
 		v-for="item in list"
+		:key="item.id"
 	>
 		<div class="title">
 			<div class="name">{{item.username}}</div>
@@ -27,7 +28,7 @@
 				>
 			</div> -->
 			<div
-				@click="isShow(item.id,item.userId)"
+				@click="isShow(item.id,item.id)"
 				class="comment"
 			>
 				<img
@@ -35,7 +36,7 @@
 					src="../../assets/message.png"
 					alt=""
 				>
-				25条回复
+				查看评论
 			</div>
 
 		</div>

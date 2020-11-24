@@ -114,12 +114,14 @@ const store = createStore<GlobalDataProps>({
     patchUploadImg(state, data) {
       state.uploadImg = data
     },
+    //发表事件框
     showModel(state) {
       state.showModel = true
     },
     cancelModel(state) {
       state.showModel = false
     },
+    //其他
     showFeedModel(state) {
       state.feedModel = true
     },
