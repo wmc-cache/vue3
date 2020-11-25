@@ -13,12 +13,13 @@ const router = createRouter({
       path: "/",
       name: "login",
       component: Login
-      
+
     },
     {
       path: "/home",
       name: "home",
       component: Home,
+      meta: { requiredLogin: true },
     },
     {
       path: "/violent",
@@ -29,6 +30,7 @@ const router = createRouter({
         {
           path: "all/:id",
           component: () => import("@/views/violent/EventTitle.vue"),
+          meta: { requiredLogin: true },
         },
         {
           path: "my",
@@ -38,14 +40,17 @@ const router = createRouter({
             {
               path: "event/:id",
               component: () => import("@/views/violent/MyEvent.vue"),
+              meta: { requiredLogin: true },
             },
             {
               path: "comment/:id",
               component: () => import("@/views/violent/Comment.vue"),
+              meta: { requiredLogin: true },
             },
             {
               path: "reply/:id",
               component: () => import("@/views/violent/Reply.vue"),
+              meta: { requiredLogin: true },
             },
           ],
         },
@@ -53,11 +58,13 @@ const router = createRouter({
           path: "/eventdetail/:id",
           name: "eventdetail",
           component: () => import("@/views/violent/EventDetail.vue"),
+          meta: { requiredLogin: true },
         },
         {
           path: "/feedList",
           name: "feedList",
           component: () => import("@/views/violent/FeedList.vue"),
+          meta: { requiredLogin: true },
         }
       ],
     },
@@ -69,35 +76,17 @@ const router = createRouter({
     },
   ],
 });
+
+
+
 // router.beforeEach((to, from, next) => {
-//   const { user, token } = store.state
-//   const { requiredLogin, redirectAlreadyLogin } = to.meta
-//   if (!user.isLogin) {
+//   const token = localStorage.getItem("token")
+//   const { requiredLogin } = to.meta
+//   if (requiredLogin) {
 //     if (token) {
-//       axios.defaults.headers.common.Authorization = `Bearer ${token}`
-//       store.dispatch('fetchCurrentUser').then(() => {
-//         if (redirectAlreadyLogin) {
-//           next('/')
-//         } else {
-//           next()
-//         }
-//       }).catch(e => {
-//         console.error(e)
-//         store.commit('logout')
-//         next('login')
-//       })
-//     } else {
-//       if (requiredLogin) {
-//         next('login')
-//       } else {
-//         next()
-//       }
-//     }
-//   } else {
-//     if (redirectAlreadyLogin) {
-//       next('/')
-//     } else {
 //       next()
+//     } else {
+//       next("/")
 //     }
 //   }
 // })

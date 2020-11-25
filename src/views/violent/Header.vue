@@ -5,10 +5,12 @@
 			<div class="title">“网络暴力”实验项目</div>
 			<div class="name">你好{{name}}!
 
-					<router-link  class="out" to="/">退出</router-link>
-
+				<span
+					class="out"
+					@click="out"
+				>退出</span>
 			</div>
-		
+
 		</div>
 	</div>
 
@@ -16,6 +18,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
 	name: "Header",
@@ -25,8 +29,15 @@ export default defineComponent({
 			name: localStorage.getItem("name")
 		};
 	},
+	setup() {
+		const router = useRouter();
+		const out = () => {
+			localStorage.removeItem("token");
+			router.push("/");
+		};
 
-	onMounted() {}
+		return { out };
+	}
 });
 </script>
 
@@ -49,8 +60,9 @@ export default defineComponent({
 	font-size: 14px;
 	color: #ffffff;
 }
-.out{
+.out {
 	font-size: 14px;
-	color: #FFBB33;
+	color: #ffbb33;
+	cursor: pointer;
 }
 </style>
