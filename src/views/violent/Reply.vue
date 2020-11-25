@@ -1,53 +1,35 @@
 <template>
 	<div>
-		<div
-			v-for="item in list"
-			class="body"
-		>
-			<div class="title">
-				<div class="title-span1">{{item.username}}对我事件的评论:</div>
-				<div class="title-time">{{item.addTime}}</div>
-			</div>
-			<div class="content">
-				<div class="content-span1">
-					{{item.content}}
+		<div v-for="item in list">
+			<div
+				v-if="item.parentId==0"
+				class="body"
+			>
+				<div class="title">
+					<div class="title-span1">{{item.username}}对我事件的评论:</div>
+					<div class="title-time">{{item.addTime}}</div>
 				</div>
+				<div class="content">
+					<div class="content-span1">
+						{{item.content}}
+					</div>
 
-				<div class="content-span2">
-					{{item.eventContent}}
+					<div class="content-span2">
+						{{item.eventContent}}
+					</div>
+				</div>
+				<div class="bottom">
+					<div
+						v-if="isEndTime=='进行中'&& !item.score"
+						@click="score(item.id)"
+						class="score"
+					>对评论评分</div>
+
 				</div>
 			</div>
-			<div class="bottom">
-				<div
-					v-if="isEndTime=='进行中'&& !item.score"
-					@click="score(item.id)"
-					class="score"
-				>对评论评分</div>
-				<!-- <div class="agree">
-					<img
-						src="../../assets/上.png"
-						alt=""
-					>
-					<div class="agree-text">赞同512</div>
-				</div>
-				<div class="dislike">
-					<img
-						src="../../assets/下.png"
-						alt=""
-					>
-				</div>
-				<div class="comment">
-					<img
-						class="message-icon"
-						src="../../assets/message.png"
-						alt=""
-					>
-					252条评论
-				</div>
-				<div class="bottom-text">原文522条评论</div> -->
-			</div>
+			<score></score>
 		</div>
-		<score></score>
+
 	</div>
 
 </template>
@@ -122,7 +104,8 @@ export default {
 
 .content-span2 {
 	width: 177px;
-	height: 54px;
+	height: 58px;
+	overflow: hidden;
 	font-size: 18px;
 	font-family: Source Han Sans CN;
 	font-weight: bold;

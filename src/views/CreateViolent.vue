@@ -55,14 +55,15 @@ export default {
 		},
 
 		handleOk() {
-		
 			this.$store.dispatch("createProject", {
 				title: `${this.title}`,
 				content: `${this.content}`,
 				state: "1"
 			});
-			setTimeout(()=>{ location.reload()},3000)
-			
+			setTimeout(() => {
+				location.reload();
+			}, 3000);
+
 			this.show = this.$store.commit("cancelModel");
 		}
 	}

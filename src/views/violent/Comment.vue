@@ -2,39 +2,43 @@
 	<div>
 		<div
 			v-for="item in list"
-			class="body"
 			:key="item.id"
-
 		>
-			<div class="title">
-				<div class="title-span1">我:</div>
 
-				<div
-					v-if="!item.score"
-					class="title-span2"
-				>未评价</div>
-				<div
-					v-if="item.score==1"
-					class="title-span2"
-				>发起者好感度:喜欢</div>
-				<div
-					v-if="item.score==2"
-					class="title-span2"
-				>发起者好感度:中立</div>
-				<div
-					v-if="item.score==3"
-					class="title-span2"
-				>发起者好感度:讨厌</div>
+			<div
+				class="body"
+				v-if="item.parentId==0"
+			>
+				<div class="title">
+					<div class="title-span1">我:</div>
 
-				<div class="title-time">{{item.updateTime}}</div>
-			</div>
-			<div class="content">
-				<div class="content-span1">
-					{{item.content}}
+					<div
+						v-if="!item.score"
+						class="title-span2"
+					>未评价</div>
+					<div
+						v-if="item.score==1"
+						class="title-span2"
+					>发起者好感度:喜欢</div>
+					<div
+						v-if="item.score==2"
+						class="title-span2"
+					>发起者好感度:中立</div>
+					<div
+						v-if="item.score==3"
+						class="title-span2"
+					>发起者好感度:讨厌</div>
+
+					<div class="title-time">{{item.updateTime}}</div>
 				</div>
+				<div class="content">
+					<div class="content-span1">
+						{{item.content}}
+					</div>
 
-				<div class="content-span2">
-					{{item.eventContent}}
+					<div class="content-span2">
+						{{item.eventContent}}
+					</div>
 				</div>
 			</div>
 			<!-- <div class="bottom">
@@ -117,8 +121,9 @@ export default {
 
 .content-span2 {
 	width: 177px;
-	height: 54px;
+	height: 58px;
 	font-size: 18px;
+	overflow: hidden;
 	font-family: Source Han Sans CN;
 	font-weight: bold;
 	line-height: 31px;

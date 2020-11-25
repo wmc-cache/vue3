@@ -64,7 +64,7 @@ export default {
 			activeId: 1,
 			tagList: [
 				{ id: 1, title: "我发布的事件", link: "/violent/my/event" },
-				{ id: 2, title: "我的评论", link: "/violent/my/comment" },
+				{ id: 2, title: "我评论的事件", link: "/violent/my/comment" },
 				{ id: 3, title: "回复我的事件", link: "/violent/my/reply" }
 			],
 			isEndTime: null
@@ -73,8 +73,11 @@ export default {
 	watch: {
 		$route(to, from) {
 			const projectId = localStorage.getItem("projectId");
-				const eventId = localStorage.getItem("eventId");
-			if (to.path == `/violent/all/${projectId}`||to.path ==`/eventdetail/${eventId}`) {
+			const eventId = localStorage.getItem("eventId");
+			if (
+				to.path == `/violent/all/${projectId}` ||
+				to.path == `/eventdetail/${eventId}`
+			) {
 				this.state = "1";
 				this.item1.background = "#418fe8";
 				this.item1.color = "#ffffff";
