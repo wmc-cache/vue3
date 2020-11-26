@@ -28,16 +28,17 @@ export default defineComponent({
 		Loader
 	},
 	setup() {
-		// onMounted(() => {
-		// 	if (window.screen.availWidth > 1100) {
-		// 		a.value.click();
-		// 	}
-		// });
+		onMounted(() => {
+			window.addEventListener("scroll", $event => {
+				console.log($event.srcElement.getElementById("wut").scrollTop);
+			});
+		});
 		const store = useStore();
 		const a = ref();
 		const currentUser = computed(() => store.state.user);
 		const isLoading = computed(() => store.state.loading);
 		const error = computed(() => store.state.error);
+
 		watch(currentUser, () => {
 			localStorage.setItem("flag", currentUser.value.flag);
 			localStorage.setItem("name", currentUser.value.username);
@@ -58,8 +59,7 @@ export default defineComponent({
 		return {
 			currentUser,
 			isLoading,
-			error,
-			a
+			error
 		};
 	}
 });

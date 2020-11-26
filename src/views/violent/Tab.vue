@@ -76,7 +76,8 @@ export default {
 			const eventId = localStorage.getItem("eventId");
 			if (
 				to.path == `/violent/all/${projectId}` ||
-				to.path == `/eventdetail/${eventId}`
+				to.path == `/eventdetail/${eventId}` ||
+				to.path == `/feedList`
 			) {
 				this.state = "1";
 				this.item1.background = "#418fe8";

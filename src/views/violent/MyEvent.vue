@@ -24,7 +24,6 @@
 				>
 				<div class="text">{{item.content}}</div>
 
-				
 			</div>
 
 			<div class="bottom">
@@ -49,14 +48,12 @@
 					>
 					{{item.commentSum}}条评论
 				</div> -->
-			
+
 				<div
-				  v-if="!item.feedContent"
+					v-if="!item.feedContent&&isEndTime=='已结束'"
 					class="span1"
 					@click="post(item.id)"
 				>填写事件反馈</div>
-				
-			
 
 			</div>
 		</div>
@@ -67,7 +64,7 @@
 
 <script>
 import Axios from "axios";
-import feed from './Feed.vue';
+import feed from "./Feed.vue";
 
 export default {
 	name: "EventTitle",
@@ -76,13 +73,13 @@ export default {
 	},
 	data() {
 		return {
-		  
 			list: [],
 			image: true,
-		
+			isEndTime: null
 		};
 	},
 	async mounted() {
+		this.isEndTime = localStorage.getItem("isEndTime");
 		const id = localStorage.getItem("projectId");
 		const data = await Axios.post("/emulation/selectEvent", {
 			projectId: id
@@ -90,7 +87,7 @@ export default {
 		console.log(data.data.data);
 		this.list = data.data.data;
 		[...this.list].forEach(ele => {
-			console.log(">>>", ele.url.split(","));
+			//console.log(">>>", ele.url.split(","));
 			ele.url = ele.url.split(",", 1);
 		});
 	},
@@ -99,8 +96,8 @@ export default {
 			this.$router.push({ path: `/eventdetail/${id}` });
 		},
 		post(id) {
-		localStorage.setItem("eventId",id)
-		this.$store.commit("showFeedModel")
+			localStorage.setItem("eventId", id);
+			this.$store.commit("showFeedModel");
 		}
 	}
 };
@@ -220,5 +217,4 @@ img {
 	align-items: center;
 	cursor: pointer;
 }
-
 </style>

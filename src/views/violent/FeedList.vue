@@ -90,7 +90,7 @@ export default {
 }
 .content-span1 {
 	width: 574px;
-	height: 38px;
+	height: auto;
 	font-size: 14px;
 	font-family: Source Han Sans CN;
 	font-weight: 400;

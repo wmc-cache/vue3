@@ -81,14 +81,14 @@ const router = createRouter({
 
 // router.beforeEach((to, from, next) => {
 //   const token = localStorage.getItem("token")
-//   const { requiredLogin } = to.meta
-//   if (requiredLogin) {
-//     if (token) {
-//       next()
-//     } else {
-//       next("/")
-//     }
+
+
+//   if (token) {
+//     next()
+//   } else {
+//     next("/")
 //   }
+
 // })
 
 export default router;

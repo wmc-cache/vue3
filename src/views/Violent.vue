@@ -1,10 +1,16 @@
 <template>
-	<div class="violent">
+	<div
+		class="violent"
+		@scroll="onScrollChange( $event)"
+	>
 		<Header></Header>
 		<Tab></Tab>
 
 		<div class="content">
-			<div class="body">
+			<div
+				class="body"
+				id="wut"
+			>
 				<push v-if="display"></push>
 				<div class="area">
 					<router-view> </router-view>
@@ -27,10 +33,13 @@
 						<button
 							@click="flag1"
 							v-if="flag==1"
-						>填写实验评价</button>
+						>提交实验评价</button>
 					</div>
 
-					<button 	@click="flag2" v-if="flag==2">查看实验评价</button>
+					<button
+						@click="flag2"
+						v-if="flag==2"
+					>查看实验评价</button>
 				</div>
 
 			</div>
@@ -46,7 +55,8 @@ import Tab from "@/views/violent/Tab.vue";
 import Tip from "@/views/violent/Tip.vue";
 import Push from "@/views/violent/Push.vue";
 import Axios from "axios";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
+import { notification } from "ant-design-vue";
 export default defineComponent({
 	name: "Violent",
 	components: {
@@ -57,7 +67,7 @@ export default defineComponent({
 	},
 	setup(props) {
 		const store = useStore();
-		const router = useRouter()
+		const router = useRouter();
 		const flag = ref(null);
 		const isEndTime = ref(null);
 		const value = ref("");
@@ -66,28 +76,45 @@ export default defineComponent({
 			isEndTime.value = localStorage.getItem("isEndTime");
 		});
 
+		const onScrollChange = $event => {
+			console.log($event.target.scrollTop);
+		};
 		const display = computed(() => store.state.pushEventDialog);
 		const flag1 = async () => {
 			const projectId = localStorage.getItem("projectId");
 			const content = value.value;
-
+			if (content.trim() == "") {
+				notification.error({
+					message: "内容不能为空"
+				});
+				return;
+			}
 			const data = await Axios.post("emulation/projectFeed", {
 				projectId,
 				content
 			});
-			location.reload()
+			if (data.status) {
+				notification.open({
+					message: "成功",
+					description: "填写实验评价成功"
+				});
+			}
+			setTimeout(() => {
+				location.reload();
+			}, 3000);
 		};
 
-		const flag2 = () =>{
-           router.push({path:"/feedList"})
-		}
+		const flag2 = () => {
+			router.push({ path: "/feedList" });
+		};
 		return {
 			display,
 			flag,
 			isEndTime,
 			value,
 			flag1,
-			flag2
+			flag2,
+			onScrollChange
 		};
 	}
 });
@@ -136,6 +163,7 @@ button {
 	flex-direction: column;
 }
 .text {
+	padding: 10px;
 	border: none;
 	width: 353px;
 	height: 330px;
