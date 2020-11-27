@@ -32,7 +32,7 @@ export default defineComponent({
 	setup() {
 		const router = useRouter();
 		const out = () => {
-			//localStorage.removeItem("token");
+			localStorage.removeItem("token");
 			router.push("/");
 		};
 
