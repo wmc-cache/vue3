@@ -74,6 +74,14 @@ const router = createRouter({
       component: SelectTest,
       meta: { requiredLogin: true },
     },
+    {
+      path: "/room/:id",
+      name: "room",
+      component: () => import("@/views/Room.vue"),
+      meta: { requiredLogin: true },
+
+    },
+
   ],
 });
 
@@ -83,6 +91,8 @@ router.beforeEach((to, from, next) => {
   const token = localStorage.getItem("token")
   if ((to.name != "login")) {
     if (token) {
+      //console.log(document.documentElement.scrollTop)
+      document.documentElement.scrollTop = 0
       next()
     } else {
       next({ name: "login" })

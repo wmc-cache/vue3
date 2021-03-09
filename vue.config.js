@@ -3,20 +3,20 @@ module.exports = {
   lintOnSave: false,
   outputDir: 'school',
   devServer: {
-    proxy: {
-      '/emulation': {
-        target: 'http://peri.xxlun.com',
-        changOrigin: true
-      }
-
-    },
     // proxy: {
     //   '/emulation': {
-    //     target: 'http://192.168.8.13:8001',
+    //     target: 'http://peri.xxlun.com',
     //     changOrigin: true
     //   }
 
-    // }
+    // },
+    proxy: {
+      '/emulation': {
+        target: 'http://192.168.8.13:9001',
+        changOrigin: true
+      }
+
+    }
   },
   configureWebpack: config => {
     return {

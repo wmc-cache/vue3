@@ -28,11 +28,7 @@ export default defineComponent({
 		Loader
 	},
 	setup() {
-		onMounted(() => {
-			window.addEventListener("scroll", $event => {
-				console.log($event.srcElement.getElementById("wut").scrollTop);
-			});
-		});
+		onMounted(() => {});
 		const store = useStore();
 		const a = ref();
 		const currentUser = computed(() => store.state.user);
@@ -42,6 +38,7 @@ export default defineComponent({
 		watch(currentUser, () => {
 			localStorage.setItem("flag", currentUser.value.flag);
 			localStorage.setItem("name", currentUser.value.username);
+			localStorage.setItem("rongToken", currentUser.value.rongToken);
 		});
 		watch(
 			() => error.value.status,

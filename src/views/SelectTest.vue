@@ -69,6 +69,16 @@
 				</div>
 
 			</div>
+
+			<div
+				v-if="state===2"
+				class="tetail"
+			>
+				<div
+					@click="goRoom"
+					class="test1"
+				>模拟法庭</div>
+			</div>
 		</div>
 		<create-violent></create-violent>
 	</div>
@@ -120,6 +130,9 @@ export default {
 			this.$store.commit("showModel");
 
 			console.log(this.$store.state.showModel);
+		},
+		goRoom() {
+			this.$router.push({ path: "/room/0" });
 		},
 		go(id, state, end) {
 			localStorage.setItem("projectId", id);
