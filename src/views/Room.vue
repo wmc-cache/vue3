@@ -12,31 +12,40 @@
 					style="width:100px"
 				>返回</a-button>
 
-				<a-radio-group
-					style="margin-top:40px"
-					v-model:value="value1"
+				<div
+					v-show="state==1"
+					style="display:flex;flex-direction: column;margin-top:40px"
 				>
-					<a-radio-button value="1">法官</a-radio-button>
-					<a-radio-button value="2">原告</a-radio-button>
-					<a-radio-button value="3">被告</a-radio-button>
-					<a-radio-button value="4">书记员</a-radio-button>
+					<input
+						ref="IdRef"
+						style="margin-top:40px"
+						placeholder="输入房间号"
+					/>
+					<a-button
+						style="margin-top:40px"
+						@click="sureID"
+					>确认房间号</a-button>
+				</div>
 
-				</a-radio-group>
+				<div
+					v-show="state==2"
+					style="display:flex;flex-direction: column;margin-top:40px"
+				>
+					<a-radio-group
+						style="margin-top:40px"
+						v-model:value="value1"
+					>
+						<a-radio-button value="1">法官</a-radio-button>
+						<a-radio-button value="2">原告</a-radio-button>
+						<a-radio-button value="3">被告</a-radio-button>
+						<a-radio-button value="4">书记员</a-radio-button>
 
-				<input
-					ref="IdRef"
-					style="margin-top:40px"
-					placeholder="输入房间号"
-				/>
-
-				<a-button
-					style="margin-top:40px"
-					@click="sureID"
-				>确认房间号</a-button>
-				<a-button
-					@click="enter"
-					style="margin-top:40px"
-				>进入</a-button>
+					</a-radio-group>
+					<a-button
+						@click="enter"
+						style="margin-top:40px"
+					>进入</a-button>
+				</div>
 
 			</div>
 		</div>
@@ -55,12 +64,31 @@
 					<a-button
 						@click="on"
 						class="on"
-					>打开音频</a-button>
+						type="danger"
+					>开启音频</a-button>
 
-					<a-button>student</a-button>
+					<a-button
+						@click="off"
+						class="off"
+						type="danger"
+					>关闭音频</a-button>
+
+					<a-button class="item1">法官1</a-button>
+					<a-button class="item2">法官2</a-button>
+					<a-button class="item3">法官3</a-button>
+
+					<a-button class="item4">书记员1</a-button>
+					<a-button class="item5">书记员2</a-button>
+
+					<a-button class="item6">被告方1</a-button>
+					<a-button class="item7">被告方2</a-button>
+
+					<a-button class="item8">原告方1</a-button>
+					<a-button class="item9">原告方2</a-button>
 
 				</div>
 			</div>
+			<!-- <a-button></a-button> -->
 		</div>
 
 	</div>
@@ -69,6 +97,7 @@
 <script>
 let rongRTC, room, stream;
 import Header from "@/views/room/header";
+import Axios from "axios";
 import { defineComponent, ref, onMounted, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 export default defineComponent({
@@ -81,6 +110,7 @@ export default defineComponent({
 		const value1 = ref("1");
 		const router = useRouter();
 		const route = useRoute();
+		let state = ref(1);
 
 		onMounted(() => {
 			console.log(route.params);
@@ -116,7 +146,12 @@ export default defineComponent({
 			rongRTC.destroy();
 		});
 		//确认房间号
-		const sureID = () => {
+		const sureID = async () => {
+			// const data = await Axios.post("emulation/createRoom", {
+			// 	roomId: 1000
+			// });
+			state.value = 2;
+
 			localStorage.setItem("roomID", IdRef.value.value);
 			console.log(IdRef.value.value, value1);
 
@@ -169,7 +204,11 @@ export default defineComponent({
 			});
 		};
 		//进入房间
-		const enter = () => {
+		const enter = async () => {
+			const data = await Axios.post("emulation/createRoomInfo", {
+				roomId: 1000,
+				roleId: 1
+			});
 			router.push({ path: `${IdRef.value.value}` });
 			let user = {
 				id: localStorage.getItem("name")
@@ -210,6 +249,7 @@ export default defineComponent({
 					console.error(error);
 				}
 			);
+
 			//获取房间信息
 			room.get().then(
 				room => {
@@ -220,12 +260,24 @@ export default defineComponent({
 				}
 			);
 		};
+		//off
+		const off = () => {
+			console.log(room);
+			room.leave().then(
+				() => {
+					console.log("leave successfully");
+				},
+				error => {
+					console.log(error);
+				}
+			);
+		};
 		//返回
 		const goBack = () => {
-			router.push("/select");
+			router.go(-1);
 		};
 
-		return { value1, goBack, sureID, IdRef, enter, route, on };
+		return { value1, goBack, sureID, IdRef, enter, route, on, off, state };
 	}
 });
 </script>
@@ -250,5 +302,55 @@ export default defineComponent({
 	position: absolute;
 	right: 0;
 	bottom: 0;
+}
+.off {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+.item1 {
+	position: absolute;
+	right: 690px;
+	bottom: 300px;
+}
+.item2 {
+	position: absolute;
+	right: 570px;
+	bottom: 300px;
+}
+.item3 {
+	position: absolute;
+	right: 450px;
+	bottom: 300px;
+}
+.item4 {
+	position: absolute;
+	right: 650px;
+	bottom: 150px;
+}
+.item5 {
+	position: absolute;
+	right: 450px;
+	bottom: 150px;
+}
+.item6 {
+	position: absolute;
+	right: 850px;
+	bottom: 120px;
+}
+.item7 {
+	position: absolute;
+	right: 950px;
+	bottom: 60px;
+}
+.item8 {
+	position: absolute;
+	right: 250px;
+	bottom: 120px;
+}
+.item9 {
+	position: absolute;
+	right: 150px;
+	bottom: 60px;
 }
 </style>
