@@ -12,7 +12,7 @@ module.exports = {
     // },
     proxy: {
       '/emulation': {
-        target: 'http://192.168.8.13:9001',
+        target: 'http://192.168.199.249:9001',
         changOrigin: true
       }
 

@@ -113,7 +113,7 @@ export default defineComponent({
 		let state = ref(1);
 
 		onMounted(() => {
-			console.log(route.params);
+			//console.log(route.params);
 			// setInterval(() => {
 			// 	console.log(IdRef.value.value);
 			// }, 1000);
@@ -142,14 +142,15 @@ export default defineComponent({
 					console.log("链接失败: ", error.code, error.msg);
 				});
 		});
-		onUnmounted(() => {
-			rongRTC.destroy();
-		});
+		// onUnmounted(() => {
+		// 	rongRTC.destroy();
+		// });
 		//确认房间号
 		const sureID = async () => {
 			// const data = await Axios.post("emulation/createRoom", {
 			// 	roomId: 1000
 			// });
+
 			state.value = 2;
 
 			localStorage.setItem("roomID", IdRef.value.value);
@@ -167,7 +168,7 @@ export default defineComponent({
 				id: IdRef.value.value, // 设置房间 ID
 				joined: function(user) {
 					// user.id 加入房间
-					console.log(user);
+					console.log("加入房间", user);
 				},
 				left: function(user) {
 					// user.id 离开房间
@@ -180,11 +181,13 @@ export default defineComponent({
 			stream = new Stream({
 				// 成员已发布资源，此时可按需订阅
 				published: function(user) {
+					console.log("user???", user);
 					stream.subscribe(user).then(user => {
 						let {
 							id,
 							stream: { tag, mediaStream }
 						} = user;
+						console.log("收到流");
 						// 订阅成功后会获取到对方媒体流，将媒体流添加到页面上的 video 节点即可展示对方音视频画面
 						let node = document.createElement("video");
 						node.autoplay = true;
@@ -205,18 +208,20 @@ export default defineComponent({
 		};
 		//进入房间
 		const enter = async () => {
-			const data = await Axios.post("emulation/createRoomInfo", {
-				roomId: 1000,
-				roleId: 1
-			});
+			// const data = await Axios.post("emulation/createRoomInfo", {
+			// 	roomId: 1000,
+			// 	roleId: 1
+			// });
+
 			router.push({ path: `${IdRef.value.value}` });
+			const id = localStorage.getItem("ID");
 			let user = {
-				id: localStorage.getItem("name")
+				id: id
 			};
 			//进入房间
 			room.join(user).then(
 				() => {
-					console.log("join successfully");
+					console.log(user, "join successfully");
 				},
 				error => {
 					console.log(error);
@@ -228,14 +233,16 @@ export default defineComponent({
 			stream.get().then(
 				function({ mediaStream }) {
 					console.log("本机流", mediaStream);
+					const id = localStorage.getItem("ID");
 					let user = {
-						id: localStorage.getItem("name"),
+						id: id,
 						stream: {
 							tag: "自定义流标签",
 							type: 1,
 							mediaStream: mediaStream
 						}
 					};
+					//发布流
 					stream.publish(user).then(
 						() => {
 							console.log("发布成功");
