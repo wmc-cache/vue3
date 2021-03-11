@@ -63,20 +63,20 @@
 					<a-button
 						type="danger"
 						class="back"
-						@click="goBack"
-					>返回</a-button>
+						@click="goBack2"
+					>离开房间</a-button>
 
-					<a-button
+					<!-- <a-button
 						@click="on"
 						class="on"
 						type="danger"
-					>开启音频</a-button>
+					>开启音频</a-button> -->
 
-					<a-button
+					<!-- <a-button
 						@click="off"
 						class="off"
 						type="danger"
-					>关闭音频</a-button>
+					>关闭音频</a-button> -->
 
 					<a-button class="item1">法官(左):{{item1}}</a-button>
 					<a-button class="item2">法官(中):{{item2}}</a-button>
@@ -135,7 +135,7 @@ export default defineComponent({
 				});
 
 				data.data.data.forEach(ele => {
-					console.log("ele", ele);
+					//	console.log("ele", ele);
 					if (ele.roleId == 1) {
 						item1.value = ele.username;
 					}
@@ -165,14 +165,8 @@ export default defineComponent({
 					}
 				});
 				//console.log("找房间信息", data.data.data);
-			}, 1000);
+			}, 2000);
 
-			// setInterval(async () => {
-			// 	const data = await Axios.post("emulation/findRoomInfos", {
-			// 		roomId: IdRef.value.value
-			// 	});
-			// 	console.log("找房间信息", data.data.data);
-			// }, 3000);
 			// appKey 可在融云开发者后台获取
 			const im = RongIMLib.init({ appkey: "pvxdm17jpw3wr" });
 			const token = localStorage.getItem("rongToken");
@@ -204,6 +198,10 @@ export default defineComponent({
 		});
 		//确认房间号
 		const sureID = async () => {
+			if (IdRef.value.value == 0) {
+				alert("非法房间");
+				return;
+			}
 			const findRoom = await Axios.post("emulation/findRoom", {
 				roomId: IdRef.value.value
 			});
@@ -252,7 +250,7 @@ export default defineComponent({
 						} = user;
 						console.log("收到流");
 						// 订阅成功后会获取到对方媒体流，将媒体流添加到页面上的 video 节点即可展示对方音视频画面
-						let node = document.createElement("video");
+						let node = document.createElement("audio");
 						node.autoplay = true;
 						node.srcObject = mediaStream;
 						node.id = id;
@@ -275,6 +273,7 @@ export default defineComponent({
 				roomId: IdRef.value.value
 			});
 			console.log("房间信息", findRoomInfo.data.data);
+
 			if (findRoomInfo.data.data == null) {
 				const data = await Axios.post("emulation/createRoomInfo", {
 					roomId: IdRef.value.value,
@@ -288,6 +287,7 @@ export default defineComponent({
 				id: id
 			};
 			//进入房间
+			//console.log("room", room);
 			room.join(user).then(
 				() => {
 					console.log(user, "join successfully");
@@ -296,6 +296,7 @@ export default defineComponent({
 					console.log(error);
 				}
 			);
+			on();
 		};
 		//发布资源
 		const on = () => {
@@ -329,7 +330,7 @@ export default defineComponent({
 			//获取房间信息
 			room.get().then(
 				room => {
-					console.log("room", room);
+					console.log("111111", room);
 				},
 				error => {
 					console.log(error);
@@ -353,9 +354,31 @@ export default defineComponent({
 			router.go(-1);
 		};
 
+		const goBack2 = () => {
+			room.leave().then(
+				() => {
+					console.log("leave successfully");
+				},
+				error => {
+					console.log(error);
+				}
+			);
+			item1.value = null;
+			item2.value = null;
+			item3.value = null;
+			item4.value = null;
+			item5.value = null;
+			item6.value = null;
+			item7.value = null;
+			item8.value = null;
+			item9.value = null;
+			router.go(-2);
+		};
+
 		return {
 			value1,
 			goBack,
+			goBack2,
 			sureID,
 			IdRef,
 			enter,
@@ -384,7 +407,7 @@ export default defineComponent({
 .bg {
 	width: 1200px;
 	height: 600px;
-	background-image: url("http://101.37.119.148:3000/room.jpg");
+	background-image: url("https://www.xxlun.com/website/file/room.jpg");
 	background-size: cover;
 	display: flex;
 	position: relative;
@@ -411,7 +434,7 @@ export default defineComponent({
 .item2 {
 	position: absolute;
 	right: 570px;
-	bottom: 300px;
+	bottom: 400px;
 }
 .item3 {
 	position: absolute;
@@ -420,13 +443,13 @@ export default defineComponent({
 }
 .item4 {
 	position: absolute;
-	right: 650px;
-	bottom: 150px;
+	right: 700px;
+	bottom: 180px;
 }
 .item5 {
 	position: absolute;
 	right: 450px;
-	bottom: 150px;
+	bottom: 180px;
 }
 .item6 {
 	position: absolute;

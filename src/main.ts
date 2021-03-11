@@ -12,7 +12,7 @@ axios.interceptors.request.use(config => {
     const token = localStorage.getItem("token")
     config.headers.Authorization = `Bearer ${token}`
   }
-  console.log("axios-request")
+  //console.log("axios-request")
   //store.commit('setLoading', true)
   store.commit('setError', { status: false, message: '' })
   return config
@@ -23,7 +23,7 @@ axios.interceptors.response.use(config => {
   //   localStorage.setItem("token", config.headers.authorization)
   // }
   //store.commit('setLoading', false)
-  console.log("axios-response")
+  //console.log("axios-response")
   return config
 }, e => {
   console.log("axios-error", e.response.data)
