@@ -105,6 +105,7 @@ import Header from "@/views/room/header";
 import Axios from "axios";
 import { defineComponent, ref, onMounted, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { notification } from "ant-design-vue";
 export default defineComponent({
 	name: "room",
 	components: {
@@ -273,6 +274,12 @@ export default defineComponent({
 				roomId: IdRef.value.value
 			});
 			console.log("房间信息", findRoomInfo.data.data);
+			if (findRoomInfo.data.data) {
+				notification.success({
+					message: "已进入过该房间，恢复角色信息",
+					placement: "topRight"
+				});
+			}
 
 			if (findRoomInfo.data.data == null) {
 				const data = await Axios.post("emulation/createRoomInfo", {
@@ -355,14 +362,17 @@ export default defineComponent({
 		};
 
 		const goBack2 = () => {
-			room.leave().then(
-				() => {
-					console.log("leave successfully");
-				},
-				error => {
-					console.log(error);
-				}
-			);
+			if (room) {
+				room.leave().then(
+					() => {
+						console.log("leave successfully");
+					},
+					error => {
+						console.log(error);
+					}
+				);
+			}
+
 			item1.value = null;
 			item2.value = null;
 			item3.value = null;
