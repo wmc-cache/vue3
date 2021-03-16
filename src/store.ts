@@ -56,7 +56,7 @@ export interface GlobalPostsProps {
   loadedColumns: ListProps<{ total?: number; currentPage?: number }>;
 }
 export interface GlobalDataProps {
-  token: string | null;
+  // token: string | null;
   error: GlobalErrorProps;
   loading: boolean;
   columns: GlobalColumnsProps;
@@ -65,7 +65,7 @@ export interface GlobalDataProps {
   pushEventDialog: boolean;
   uploadImg: [];
   showModel: boolean;
-  feedModel:boolean
+  feedModel: boolean
   projectList: []
 }
 
@@ -87,7 +87,7 @@ const asyncAndCommit = async (url: string, mutationName: string,
 const store = createStore<GlobalDataProps>({
   //全局数据
   state: {
-    token: localStorage.getItem('token') || null,
+    // token: localStorage.getItem('token') || null,
     error: { status: false },
     loading: false,
     columns: { data: {}, currentPage: 0 },
@@ -96,7 +96,7 @@ const store = createStore<GlobalDataProps>({
     pushEventDialog: false,
     uploadImg: [],
     showModel: false,
-    feedModel:false,
+    feedModel: false,
     projectList: []
   },
 
@@ -140,20 +140,20 @@ const store = createStore<GlobalDataProps>({
       //console.log("state", state)
       //console.log("login:", rawData)
       const token = rawData.authorization
-      state.token = token
+      //state.token = token
       localStorage.setItem('token', token)
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
     },
     //获取用户信息
     fetchCurrentUser(state, rawData) {
-        console.log( rawData)
+      console.log(rawData)
       state.user = { isLogin: true, ...rawData }
     },
     updateUser(state, { data }) {
       state.user = { isLogin: true, ...data }
     },
     logout(state) {
-      state.token = ''
+      // state.token = ''
       state.user = { isLogin: false }
       localStorage.removeItem('token')
       delete axios.defaults.headers.common.Authorization

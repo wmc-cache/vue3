@@ -40,6 +40,7 @@ export default defineComponent({
 			localStorage.setItem("name", currentUser.value.username);
 			localStorage.setItem("rongToken", currentUser.value.rongToken);
 			localStorage.setItem("ID", currentUser.value.id);
+			localStorage.setItem("Img", currentUser.value.picUrl);
 		});
 		watch(
 			() => error.value.status,

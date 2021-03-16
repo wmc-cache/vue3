@@ -81,26 +81,40 @@ const router = createRouter({
       meta: { requiredLogin: true },
 
     },
+    {
+      path: "/message",
+      name: "message",
+      component: () => import("@/views/room/message.vue"),
+      meta: { requiredLogin: true },
+
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: () => import("@/views/Register.vue"),
+
+
+    },
 
   ],
 });
 
 
 
-router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem("token")
-  if ((to.name != "login")) {
-    if (token) {
-      //console.log(document.documentElement.scrollTop)
-      document.documentElement.scrollTop = 0
-      next()
-    } else {
-      next({ name: "login" })
-    }
-  }
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem("token")
+//   if ((to.name != "login")) {
+//     if (token) {
+//       //console.log(document.documentElement.scrollTop)
+//       document.documentElement.scrollTop = 0
+//       next()
+//     } else {
+//       next({ name: "login" })
+//     }
+//   }
 
-  next()
+//   next()
 
-})
+// })
 
 export default router;

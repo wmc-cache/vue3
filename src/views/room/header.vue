@@ -3,12 +3,17 @@
 	<div class="body">
 		<div class="content">
 			<div class="title">“模拟法庭”实验项目</div>
-			<div class="name">你好{{name}}!
 
+			<div class="name">你好{{name}}!
+				<span
+					class="out"
+					@click="go"
+				>个人中心</span>
 				<span
 					class="out"
 					@click="out"
 				>退出</span>
+
 			</div>
 
 		</div>
@@ -36,7 +41,11 @@ export default defineComponent({
 			router.push("/");
 		};
 
-		return { out };
+		const go = () => {
+			router.push("/message");
+		};
+
+		return { out, go };
 	}
 });
 </script>
@@ -64,5 +73,6 @@ export default defineComponent({
 	font-size: 14px;
 	color: #ffbb33;
 	cursor: pointer;
+	margin-left: 10px;
 }
 </style>

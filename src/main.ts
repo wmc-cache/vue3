@@ -6,12 +6,23 @@ import App from './App.vue'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'http://peri.xxlun.com/'
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'https://peri.xxlun.com/'
 axios.interceptors.request.use(config => {
   if (localStorage.getItem("token")) {
     const token = localStorage.getItem("token")
     config.headers.Authorization = `Bearer ${token}`
   }
+
+  if (config.url == "/emulation/login") {
+    config.headers.Authorization = ""
+  }
+  if (config.url == "emulation/register") {
+    config.headers.Authorization = ""
+  }
+
+
+
+  console.log(">>>>>", config)
   //console.log("axios-request")
   //store.commit('setLoading', true)
   store.commit('setError', { status: false, message: '' })
